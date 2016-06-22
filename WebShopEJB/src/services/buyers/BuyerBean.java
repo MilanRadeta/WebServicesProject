@@ -100,13 +100,25 @@ public class BuyerBean implements BuyerBeanRemote {
 		Buyer buyer = new Buyer();
 		// TODO: get shopping cart
 		ShoppingCart cart = new ShoppingCart();
-		// TODO: get articles in cart from database
+		// TODO: get articles in cart from database and 
 		List<Article> articles = new ArrayList<>();
+		ShoppingCart cleanCart = new ShoppingCart();
+		for (Article article : cart.getItems().keySet()) { 
+			for (Article databaseArticle : articles) {
+				if (databaseArticle.getId() == article.getId()) {
+					cleanCart.getItems().put(databaseArticle, cart.getItems().get(article));
+					break;
+				}
+			}
+		}
+		
+		cart = cleanCart;
+		
 		Bill bill = new Bill();
 		bill.setDate(new Date());
 		List<Item> items = new ArrayList<>();
 		int itemNumber = 0;
-		for (Article article : cart.getItems().keySet()) {
+		for (Article article : cart.getItems().keySet()) { 
 			int count = cart.getItems().get(article);
 			Item item = new Item();
 			item.setArticle(article);
@@ -114,6 +126,15 @@ public class BuyerBean implements BuyerBeanRemote {
 			item.setItemNumber(++itemNumber);
 			item.setUnitPrice(article.getPrice());
 			item.setUnits(count);
+			if (article.getInStock() > count) {
+				article.setInStock(article.getInStock() - count);
+				if (article.getInStock() < article.getMinInStock()) {
+					// TODO: report to seller
+				}
+			}
+			else {
+				// TODO: error
+			}
 			// TODO: use Rete engine to calculate discounts and prices
 		}
 		bill.setItems(items);

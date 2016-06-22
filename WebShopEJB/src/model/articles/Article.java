@@ -7,11 +7,11 @@ public class Article {
 	private String name;
 	private ArticleCategory articleCategory;
 	private double price; // unsigned
-	private int inStock; // unsigned, if it becomes lower than minInStock inform seller
+	private double inStock; // unsigned, if it becomes lower than minInStock inform seller
 	private Date creationDate;
 	private boolean neededInStock;
 	private ArticleStatus status;
-	private int minInStock; // unsigned
+	private double minInStock; // unsigned
 
 	public int getId() {
 		return id;
@@ -45,11 +45,11 @@ public class Article {
 		this.price = price;
 	}
 
-	public int getInStock() {
+	public double getInStock() {
 		return inStock;
 	}
 
-	public void setInStock(int inStock) {
+	public void setInStock(double inStock) {
 		this.inStock = inStock;
 	}
 
@@ -77,11 +77,11 @@ public class Article {
 		this.status = status;
 	}
 
-	public int getMinInStock() {
+	public double getMinInStock() {
 		return minInStock;
 	}
 
-	public void setMinInStock(int minInStock) {
+	public void setMinInStock(double minInStock) {
 		this.minInStock = minInStock;
 	}
 
