@@ -22,6 +22,7 @@ public class SellerBean implements SellerBeanRemote {
 
 	@Override
 	public List<Article> checkArticles() {
+		// TODO: check if seller is logged in
 		// TODO: get Articles from database
 		List<Article> articles = new ArrayList<Article>();
 		// TODO: use RETE engine to check all articles if they're needed in stock
@@ -32,6 +33,7 @@ public class SellerBean implements SellerBeanRemote {
 
 	@Override
 	public void orderArticle(Article article, int count) {
+		// TODO: check if seller is logged in
 		// TODO: get Article from database
 		article.setInStock(article.getInStock() + count);
 		if (article.getInStock() > article.getMinInStock()) {
@@ -42,6 +44,7 @@ public class SellerBean implements SellerBeanRemote {
 
 	@Override
 	public List<Bill> getOrderedBills() {
+		// TODO: check if seller is logged in
 		// TODO: get ordered bills from database
 		List<Bill> orderedBills = new ArrayList<>();
 		return orderedBills;
@@ -49,6 +52,7 @@ public class SellerBean implements SellerBeanRemote {
 
 	@Override
 	public List<Item> processBill(Bill bill) {
+		// TODO: check if seller is logged in
 		// TODO: get bill from database
 		// TODO: use RETE engine?
 		List<Item> missingItems  = new ArrayList<>();
@@ -71,6 +75,7 @@ public class SellerBean implements SellerBeanRemote {
 
 	@Override
 	public void cancelBill(Bill bill) {
+		// TODO: check if seller is logged in
 		// TODO: get bill from database
 		bill.setState(BillState.CANCELED);
 		// TODO: persist
