@@ -1,4 +1,5 @@
-package model;
+package model.users.buyers;
+
 
 public class PaymentPointsBonus {
 	private double min;

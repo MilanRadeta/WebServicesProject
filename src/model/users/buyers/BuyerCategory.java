@@ -1,4 +1,4 @@
-package model;
+package model.users.buyers;
 
 import java.util.List;
 

@@ -1,6 +1,9 @@
-package model;
+package model.users;
 
 import java.util.List;
+
+import model.Payment;
+import model.users.buyers.BuyerCategory;
 
 public class Buyer extends User {
 
