@@ -1,8 +1,8 @@
-package model;
+package model.articles;
 
 public class ArticleCategory {
 
-	private int id;
+	private int id; //unique
 	private ArticleCategory parentCategory;
 	private String name;
 	private double maxDiscount;

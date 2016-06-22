@@ -3,7 +3,7 @@ package model.users.buyers;
 import java.util.List;
 
 public class BuyerCategory {
-	private int id;
+	private int id; //unique
 	private String name;
 	private List<PaymentPointsBonus> paymentPointsBonuses;
 

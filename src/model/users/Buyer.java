@@ -2,15 +2,16 @@ package model.users;
 
 import java.util.List;
 
-import model.Payment;
+import model.payment.Bill;
 import model.users.buyers.BuyerCategory;
 
 public class Buyer extends User {
 
+	// Buyer profile
 	private String address;
 	private double points;
 	private BuyerCategory category;
-	private List<Payment> paymentHistory;
+	private List<Bill> paymentHistory;
 
 	public Buyer() {
 		setRole(Role.BUYER);
@@ -32,11 +33,11 @@ public class Buyer extends User {
 		this.category = category;
 	}
 
-	public List<Payment> getPaymentHistory() {
+	public List<Bill> getPaymentHistory() {
 		return paymentHistory;
 	}
 
-	public void setPaymentHistory(List<Payment> paymentHistory) {
+	public void setPaymentHistory(List<Bill> paymentHistory) {
 		this.paymentHistory = paymentHistory;
 	}
 

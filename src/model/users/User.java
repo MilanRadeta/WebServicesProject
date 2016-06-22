@@ -3,7 +3,7 @@ package model.users;
 import java.util.Date;
 
 public abstract class User {
-	private String username;
+	private String username; //unique
 	private String password;
 	private String firstName;
 	private String lastName;
