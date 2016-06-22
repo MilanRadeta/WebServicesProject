@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
-encoding//src/jess/rules/billItems.clp=UTF-8
+encoding//src/jess/rules/additionalItemDiscounts.clp=UTF-8
+encoding//src/jess/rules/baseItemDiscounts.clp=UTF-8
 encoding//src/utils/articles/ArticleCategoryCreator.java=UTF-8

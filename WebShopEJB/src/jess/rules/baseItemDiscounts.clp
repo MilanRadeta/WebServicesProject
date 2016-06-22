@@ -1,24 +1,4 @@
-(batch "jess/templates/templates.clp")
-
-(deffunction checkCategory (?category ?name)
-    (return (or 
-            (= ?category.name ?name)
-            (and 
-            	(<> ?cateoory.parentCategory nil)
-            	(= ?category.parentCategory.OBJECT.name ?name)
-            )
-            )
-    )
-)
-
-
-(deffunction createItemDiscount (?bill ?item ?discountPercentage ?type)
-    (bind ?itemDiscount (definstance itemDiscount (new ItemDiscount)))
-    (modify ?itemDiscount (bill ?bill.OBJECT))
-    (modify ?itemDiscount (item ?item.OBJECT))
-    (modify ?itemDiscount (discountPercentage ?discountPercentage))
-    (modify ?itemDiscount (type ?type))
-)
+(batch "jess/functions/functions.clp")
 
 (defrule base-item-discount-1
     "Kreiraj osnovni popust od 10% za stavku
@@ -29,12 +9,12 @@
         (salience 10))
     ?bill <- (bill)
     ?item <- (item
-        		(bill ?bill.OBJECT)
-        		(units ?units &:(> ?units 20)))
+        (bill ?bill.OBJECT)
+        (units ?units &:(> ?units 20)))
     (not (itemDiscount (bill ?bill.OBJECT) (item ?item.OBJECT) (type ?type &=(get-member DiscountType BASE))))
     =>
     (createItemDiscount ?bill ?item 0.1 (get-member DiscountType BASE))
-)
+    )
 
 (defrule base-item-discount-2
     "Kreiraj osnovni popust od 5% za stavku
@@ -45,14 +25,14 @@
         (salience 1))
     ?bill <- (bill)
     ?item <- (item
-        		(bill ?bill.OBJECT)
-        		(units ?units &:(> ?units 5)))
+        (bill ?bill.OBJECT)
+        (units ?units &:(> ?units 5)))
     ?article <- (article (OBJECT ?item.article))
     ?category <- (articleCategory (OBJECT ?article.articleCategory) (name ?name |"Televizori" |"Računari" |"Laptopovi"))
     (not (itemDiscount (bill ?bill.OBJECT) (item ?item.OBJECT) (type ?type &=(get-member DiscountType BASE))))
     =>
     (createItemDiscount ?bill ?item 0.05 (get-member DiscountType BASE))
-)
+    )
 
 (defrule base-item-discount-3
     "Kreiraj osnovni popust od 7% za stavku
@@ -64,9 +44,9 @@
         (salience 5))
     ?bill <- (bill)
     ?item <- (item
-        		(bill ?bill.OBJECT)
-        		(units ?units)
-        		(unitPrice ?unitPrice))
+        (bill ?bill.OBJECT)
+        (units ?units)
+        (unitPrice ?unitPrice))
     ?article <- (article (OBJECT ?item.article))
     ?category <- (articleCategory (name ?name) (parentCategory ?parentCategory) (OBJECT ?article.articleCategory))
     (test (checkCategory ?category "Roba široke potrošnje"))
@@ -74,4 +54,4 @@
     (not (itemDiscount (bill ?bill.OBJECT) (item ?item.OBJECT) (type ?type &=(get-member DiscountType BASE))))
     =>
     (createItemDiscount ?bill ?item 0.07 (get-member DiscountType BASE))
-)
+    )

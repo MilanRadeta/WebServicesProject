@@ -9,7 +9,10 @@ import model.users.Buyer;
 import model.users.Role;
 
 public class Test {
+	
 
+	// TODO: test billItems rules
+	
 	public static void main(String[] args) {
 		try {
 			Rete engine = new Rete();
@@ -34,6 +37,9 @@ public class Test {
 			System.out.println(Role.BUYER.toString());
 			System.out.println(Role.BUYER.name());
 			engine.definstance("buyer", buyer, false);
+			engine.definstance("bill", bill, false);
+			engine.definstance("article", article, false);
+			engine.definstance("item", item, false);
 			engine.eval("(bind ?f (fact-id 1) )");
 			engine.eval("(printout t ?f crlf)");
 			engine.eval("(printout t ?f.role crlf)");
