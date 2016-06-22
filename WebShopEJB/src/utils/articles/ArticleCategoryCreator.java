@@ -1,7 +1,9 @@
-package model.articles;
+package utils.articles;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.articles.ArticleCategory;
 
 public class ArticleCategoryCreator {
 

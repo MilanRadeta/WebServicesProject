@@ -1,5 +1,6 @@
 package model.payment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.articles.Article;
@@ -14,7 +15,8 @@ public class Item {
 	private double originalTotalPrice;
 	private double discountPercentage;
 	private double totalPrice; //with all discounts
-	private List<ItemDiscount> discounts;
+	private List<ItemDiscount> discounts = new ArrayList<ItemDiscount>();
+	
 	public Bill getBill() {
 		return bill;
 	}

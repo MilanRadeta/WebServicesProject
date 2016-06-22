@@ -1,5 +1,6 @@
 package model.payment;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class Bill {
 	private double totalPrice; // with all the discounts - spent points
 	private int spentPoints;
 	private int receivedPoints;
-	private List<BillDiscount> discounts;
-	private List<Item> items;
+	private List<BillDiscount> discounts = new ArrayList<BillDiscount>();
+	private List<Item> items = new ArrayList<>();
 
 	public int getId() {
 		return id;
