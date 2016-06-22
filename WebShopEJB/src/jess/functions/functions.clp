@@ -19,3 +19,11 @@
     (modify ?itemDiscount (type ?type))
     (call ?item.discounts.OBJECT add ?itemDiscount.OBJECT)
     )
+
+(deffunction getDateDifferenceInDays (?date1 ?date2) 
+    (bind ?time1 (call ?date1 getTime)) 
+    (bind ?time2 (call ?date2 getTime))
+    (bind ?diffTime (- ?time2 ?time1))
+    (bind ?diffDays (/ ?diffTime (* 100 60 60 24)))
+    (return ?diffDays)
+    )
