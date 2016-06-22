@@ -13,7 +13,7 @@ public class Bill {
 	private BillState state;
 	private double originalTotalPrice;
 	private double discountPercentage;
-	private double totalPrice; // with all the discounts
+	private double totalPrice; // with all the discounts - spent points
 	private int spentPoints;
 	private int receivedPoints;
 	private List<BillDiscount> discounts;
