@@ -66,10 +66,11 @@ public class ManagerBean implements ManagerBeanRemote {
 	}
 
 	@Override
-	public void createSale(SaleEvent event) {
+	public String createSale(SaleEvent event) {
 		// TODO: check if manager is logged in
 		// TODO: if id exists return error message
 		// TODO: persist
+		return null;
 	}
 
 	@Override

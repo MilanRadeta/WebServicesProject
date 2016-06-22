@@ -8,7 +8,10 @@ import java.util.Map;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import model.articles.Article;
 import model.payment.Bill;
@@ -26,6 +29,13 @@ import utils.shoppingcart.ShoppingCart;
 @Path("/buyers")
 public class BuyerBean implements BuyerBeanRemote {
 
+	@GET
+	@Path("/test")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String test() {
+		return "TEST";
+	}
+	
 	@Override
 	public Map<String, Object> getBuyerProfile() {
 		// TODO: get user with tokens
