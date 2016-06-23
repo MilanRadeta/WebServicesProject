@@ -1,10 +1,24 @@
 package model.articles;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Article {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table
+public class Article implements Serializable {
+	private static final long serialVersionUID = -7264390151265136042L;
+	
+	@Id
+	@GeneratedValue
 	private int id; // unique
 	private String name;
+	@ManyToOne
 	private ArticleCategory articleCategory;
 	private double price; // unsigned
 	private double inStock; // unsigned, if it becomes lower than minInStock inform seller

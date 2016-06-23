@@ -1,10 +1,35 @@
 package model.users.buyers;
 
-public class PaymentPointsBonus {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table
+public class PaymentPointsBonus implements Serializable {
+	private static final long serialVersionUID = -4591451095977557720L;
+	
+	@Id
+	@GeneratedValue
+	private int id;
+	
 	private double min;
 	private double max;
 	private double percent;
+	@ManyToOne
 	private BuyerCategory buyerCategory;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public double getMin() {
 		return min;

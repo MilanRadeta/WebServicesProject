@@ -1,11 +1,27 @@
 package model.payment.discounts;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import model.payment.Bill;
 import model.payment.Item;
 
-public class ItemDiscount {
+@Entity
+@Table
+public class ItemDiscount implements Serializable {
+	private static final long serialVersionUID = -2699182953239243368L;
+	
+	@Id
+	@GeneratedValue
 	private int id; //unique
+	@ManyToOne
 	private Bill bill;
+	@ManyToOne
 	private Item item;
 	private double discountPercentage;
 	private DiscountType type;

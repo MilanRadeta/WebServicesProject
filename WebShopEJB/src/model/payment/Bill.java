@@ -1,15 +1,28 @@
 package model.payment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import model.payment.discounts.BillDiscount;
 import model.users.Buyer;
 
-public class Bill {
+@Entity
+public class Bill implements Serializable {
+	private static final long serialVersionUID = -5381510478428079568L;
+	
+	@Id
+	@GeneratedValue
 	private int id; // unique
 	private Date date;
+	@ManyToOne
 	private Buyer buyer;
 	private BillState state;
 	private double originalTotalPrice;
@@ -17,7 +30,9 @@ public class Bill {
 	private double totalPrice; // with all the discounts - spent points
 	private int spentPoints;
 	private int receivedPoints;
+	@OneToMany
 	private List<BillDiscount> discounts = new ArrayList<BillDiscount>();
+	@OneToMany
 	private List<Item> items = new ArrayList<>();
 
 	public int getId() {

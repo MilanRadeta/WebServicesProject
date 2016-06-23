@@ -1,10 +1,24 @@
 package model.users.buyers;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BuyerCategory {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table
+public class BuyerCategory implements Serializable {
+	private static final long serialVersionUID = -6975330980242658550L;
+	
+	@Id
+	@GeneratedValue
 	private int id; //unique
 	private String name;
+	@OneToMany
 	private List<PaymentPointsBonus> paymentPointsBonuses;
 
 	public int getId() {

@@ -1,17 +1,32 @@
 package model.payment.discounts;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import model.articles.ArticleCategory;
 
-public class SaleEvent {
+@Entity
+@Table
+public class SaleEvent implements Serializable {
+	private static final long serialVersionUID = -2064753681681715061L;
+	
+	@Id
+	@GeneratedValue
 	private int id; //unique
 	private String name;
 	private Date from;
 	private Date to;
 	private double discount;
+	@OneToMany
 	private List<ArticleCategory> categories;
+	
 	public int getId() {
 		return id;
 	}

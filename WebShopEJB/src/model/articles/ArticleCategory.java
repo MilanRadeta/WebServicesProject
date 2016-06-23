@@ -1,8 +1,22 @@
 package model.articles;
 
-public class ArticleCategory {
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table
+public class ArticleCategory implements Serializable {
+	private static final long serialVersionUID = -8564156799552453357L;
+	
+	@Id
+	@GeneratedValue
 	private int id; //unique
+	@ManyToOne
 	private ArticleCategory parentCategory;
 	private String name;
 	private double maxDiscount;
