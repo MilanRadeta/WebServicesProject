@@ -87,3 +87,13 @@
         (slot-specific TRUE)
         (from-class Article)
         (include-variables TRUE)))
+
+; HELPER TEMPLATES
+
+(deftemplate itemWithDiscount
+    (declare
+        (slot-specific TRUE)
+        )
+    (slot item)
+    (slot discount)
+    )

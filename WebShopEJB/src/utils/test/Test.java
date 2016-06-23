@@ -11,7 +11,9 @@ import model.users.Role;
 public class Test {
 	
 
-	// TODO: test billItems rules
+	// TODO: test baseItemDiscounts rules
+	// TODO: test additionalItemDiscounts rules
+	// TODO: test finalItemDiscounts rules
 	
 	public static void main(String[] args) {
 		try {
