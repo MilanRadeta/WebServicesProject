@@ -11,12 +11,12 @@ import javax.persistence.Query;
 public abstract class GenericDaoBean<T, ID extends Serializable> implements GenericDaoLocal<T, ID> {
 
 	@PersistenceContext(unitName = "WebShop")
-	private EntityManager em;
+	protected EntityManager em;
 
 	private Class<T> entityType;
 
 	@SuppressWarnings("unchecked")
-	public GenericDaoBean(Class<T> entityType) {
+	public GenericDaoBean() {
 		entityType = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
