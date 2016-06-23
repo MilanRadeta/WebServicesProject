@@ -11,6 +11,14 @@
         )
     )
 
+(deffunction createBillDiscount (?bill ?discountPercentage ?type)
+    (bind ?billDiscount (definstance billDiscount (new BillDiscount)))
+    (modify ?billDiscount (bill ?bill.OBJECT))
+    (modify ?billDiscount (discountPercentage ?discountPercentage))
+    (modify ?billDiscount (type ?type))
+    (call ?bill.discounts.OBJECT add ?billDiscount.OBJECT)
+    )
+
 (deffunction createItemDiscount (?bill ?item ?discountPercentage ?type)
     (bind ?itemDiscount (definstance itemDiscount (new ItemDiscount)))
     (modify ?itemDiscount (bill ?bill.OBJECT))
@@ -26,4 +34,12 @@
     (bind ?diffTime (- ?time2 ?time1))
     (bind ?diffDays (/ ?diffTime (* 100 60 60 24)))
     (return ?diffDays)
+    )
+
+(deffunction getDateDifferenceInYears (?date1 ?date2) 
+    (bind ?time1 (call ?date1 getTime)) 
+    (bind ?time2 (call ?date2 getTime))
+    (bind ?diffTime (- ?time2 ?time1))
+    (bind ?diffYears (/ ?diffTime (* 100 60 60 24 365.242199)))
+    (return ?diffYears)
     )

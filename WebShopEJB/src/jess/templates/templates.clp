@@ -97,3 +97,11 @@
     (slot item)
     (slot discount)
     )
+
+(deftemplate billWithDiscount
+    (declare
+        (slot-specific TRUE)
+        )
+    (slot bill)
+    (slot discount)
+    )
