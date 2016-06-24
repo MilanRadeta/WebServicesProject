@@ -25,6 +25,7 @@
 					if (response.data) {
 	                    var currentUser = { username: username, token: response.data };
 	                    var tokenPayload = jwtHelper.decodeToken(response.data);
+
 	                    if(tokenPayload.role){
 	                        currentUser.role = tokenPayload.role;
 	                    }
