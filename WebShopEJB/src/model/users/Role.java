@@ -7,7 +7,7 @@ public enum Role {
 	
 	private Role (String val) {
 		if (!this.name().equals(val)) {
-			throw new IllegalArgumentException("Incorect use of ERole");
+			throw new IllegalArgumentException("Incorect use of Role");
 		}
 	}
 	
