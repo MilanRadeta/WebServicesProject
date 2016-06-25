@@ -1,6 +1,6 @@
 (function(angular) {
-	var login = angular.module("login", ["ngStorage", "authentication"]);
-	var loginController = function($scope, $localStorage, AuthenticationService) {
+	var login = angular.module("login", ["ngStorage", "authentication", "ui.router"]);
+	var loginController = function($rootScope, $scope, $localStorage, AuthenticationService, $state) {
 		$scope.username = null;
 		$scope.password = null;
 		$scope.loggingIn = false;
@@ -14,21 +14,13 @@
 						$scope.username,
 						$scope.password,
 						function(success) {
-							console.log(success);
 							if (!success) {
 								$scope.loginFailed = true;
 								$scope.loggingIn = false;
 							}
 							else {
-								// TODO
-								switch ($localStorage.currentUser.role) {
-								case "BUYER":
-									break;
-								case "MANAGER":
-									break;
-								case "SELLER":
-									break;
-								}
+								console.log("successful login");
+								$rootScope.checkState();
 							}
 						}
 				);

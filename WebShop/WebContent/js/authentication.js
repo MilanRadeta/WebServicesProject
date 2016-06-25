@@ -34,7 +34,6 @@
 	                    $localStorage.currentUser = currentUser;
 	                    $http.defaults.headers.common.Authorization = response.token;
 	                    callback(true);
-	                    $state.go('main');
 	                } else {
 	                    callback(false);
 	                }
