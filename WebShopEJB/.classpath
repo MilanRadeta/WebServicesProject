@@ -20,5 +20,12 @@
 	<classpathentry kind="lib" path="lib/slf4j-simple-1.7.21.jar"/>
 	<classpathentry kind="lib" path="lib/json-simple-1.1-bundle.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.9.13(1).jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-jaxrs-1.9.13.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.9.13(1).jar"/>
+	<classpathentry kind="lib" path="lib/jackson-xc-1.9.9.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

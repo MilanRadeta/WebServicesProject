@@ -17,6 +17,7 @@ import model.users.User;
 import model.users.buyers.BuyerCategory;
 import services.users.UserBean;
 import dao.users.buyers.BuyerCategoryDaoLocal;
+import dao.users.buyers.PaymentPointsBonusDaoLocal;
 
 /**
  * Session Bean implementation class ManagerBean
@@ -35,12 +36,14 @@ public class ManagerBean implements ManagerBeanRemote {
 	@EJB
 	private BuyerCategoryDaoLocal buyerCategoryDao;
 	
+	@EJB
+	private PaymentPointsBonusDaoLocal pointsDao;
+	
 	// TODO: all entities must eagerly fetch
 	
 	@Override
 	public List<BuyerCategory> getBuyerCategories() {
 		User user = userBean.validateJWTToken(httpHeaders.getRequestHeaders().getFirst("Authorization"));
-		System.out.println(user);
 		if (user != null && user.getRole() == Role.MANAGER) {
 			List<BuyerCategory> categories = buyerCategoryDao.findAll();
 			return categories;
@@ -50,9 +53,10 @@ public class ManagerBean implements ManagerBeanRemote {
 
 	@Override
 	public String changeBuyerCategory(BuyerCategory category) {
-		// TODO: check if manager is logged in
-		// TODO: get category from DB
-		// TODO: if exists overwrite and persist, else return error
+		User user = userBean.validateJWTToken(httpHeaders.getRequestHeaders().getFirst("Authorization"));
+		if (user != null && user.getRole() == Role.MANAGER) {
+			buyerCategoryDao.saveBuyerCategory(category);
+		}
 		return null;
 	}
 

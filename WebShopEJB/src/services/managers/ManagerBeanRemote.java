@@ -22,13 +22,13 @@ public interface ManagerBeanRemote {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getBuyerCategories")
+	@Path("/buyerCategories")
 	public List<BuyerCategory> getBuyerCategories();
 
 	@PUT
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/changeBuyerCategory")
+	@Path("/buyerCategories")
 	public String changeBuyerCategory(BuyerCategory category);
 
 	// Article Categories

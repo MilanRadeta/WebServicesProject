@@ -1,6 +1,6 @@
 (function(angular) {
-	var login = angular.module("login", ["ngStorage", "authentication", "ui.router"]);
-	var loginController = function($rootScope, $scope, $localStorage, AuthenticationService, $state) {
+	var login = angular.module("login", ["ngStorage", "authentication", "ui.router", "navbar"]);
+	var loginController = function($rootScope, $scope, $localStorage, AuthenticationService, $state, Navbar) {
 		$scope.username = null;
 		$scope.password = null;
 		$scope.loggingIn = false;
@@ -20,6 +20,7 @@
 							}
 							else {
 								console.log("successful login");
+								Navbar.update();
 								$rootScope.checkState($state.current);
 							}
 						}
