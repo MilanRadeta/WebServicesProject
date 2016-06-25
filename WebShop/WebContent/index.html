@@ -19,7 +19,7 @@
 			<h1 align="center">WebShop</h1>
 		</div>
 		<div>
-			<button data-ng-if="isLoggedIn()" data-ng-click="logout()">Logout</button>
+			<button data-ng-show="isLoggedIn()" data-ng-click="logout()">Logout</button>
 		</div>
 		<div ui-view></div>
 	</body>

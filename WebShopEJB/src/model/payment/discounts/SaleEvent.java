@@ -21,7 +21,7 @@ public class SaleEvent implements Serializable {
 	private static final long serialVersionUID = -2064753681681715061L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; //unique
 	private String name;
 	@Temporal(TemporalType.TIME)

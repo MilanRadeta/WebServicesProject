@@ -35,6 +35,7 @@ public class UserBean implements UserBeanRemote {
 		if (user.getUsername() != null && user.getUsername().length() > 0
 				&& user.getPassword() != null
 				&& user.getPassword().length() > 0) {
+			// TODO: change to query by username
 			User dbUser = userDao.findById(user.getUsername());
 			if (dbUser != null && dbUser.getPassword().equals(user.getPassword())) {
 				if (senderJwk == null) {

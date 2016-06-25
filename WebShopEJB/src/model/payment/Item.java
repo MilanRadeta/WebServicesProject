@@ -19,7 +19,7 @@ public class Item implements Serializable {
 	private static final long serialVersionUID = 1569257937604437006L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@ManyToOne

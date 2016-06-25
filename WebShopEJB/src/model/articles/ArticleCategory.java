@@ -15,7 +15,7 @@ public class ArticleCategory implements Serializable {
 	private static final long serialVersionUID = -8564156799552453357L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; //unique
 	@ManyToOne
 	private ArticleCategory parentCategory;

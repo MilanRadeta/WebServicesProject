@@ -22,7 +22,7 @@ public class Bill implements Serializable {
 	private static final long serialVersionUID = -5381510478428079568L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; // unique
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;

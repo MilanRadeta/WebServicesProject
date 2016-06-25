@@ -18,7 +18,7 @@ public class ItemDiscount implements Serializable {
 	private static final long serialVersionUID = -2699182953239243368L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; //unique
 	@ManyToOne
 	private Bill bill;

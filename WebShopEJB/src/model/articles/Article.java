@@ -18,7 +18,7 @@ public class Article implements Serializable {
 	private static final long serialVersionUID = -7264390151265136042L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; // unique
 	private String name;
 	@ManyToOne

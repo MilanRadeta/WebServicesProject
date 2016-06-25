@@ -15,7 +15,7 @@ public class PaymentPointsBonus implements Serializable {
 	private static final long serialVersionUID = -4591451095977557720L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	private double min;

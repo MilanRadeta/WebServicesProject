@@ -17,7 +17,7 @@ public class BuyerCategory implements Serializable {
 	private static final long serialVersionUID = -6975330980242658550L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; // unique
 	private String name;
 	@OneToMany

@@ -41,13 +41,16 @@
         if ($localStorage.currentUser) {
             $http.defaults.headers.common.Authorization = $localStorage.currentUser.token;
         }
+        else {
+        	$state.go("login");
+        }
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-          if(!AuthenticationService.getCurrentUser()){
-            $state.go('login');
+          if(AuthenticationService.getCurrentUser()){
+        	  // TODO: check user role
           }
           else {
-        	  // TODO: check user role
+              $state.go('login');
           }
         });
 
