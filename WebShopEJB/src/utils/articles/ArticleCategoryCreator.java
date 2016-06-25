@@ -7,7 +7,7 @@ import model.articles.ArticleCategory;
 
 public class ArticleCategoryCreator {
 
-	public List<ArticleCategory> createCategories() {
+	public static List<ArticleCategory> createCategories() {
 		String[] categoryNames =
 			{
 				"Roba široke potrošnje",
@@ -33,7 +33,6 @@ public class ArticleCategoryCreator {
 		List<ArticleCategory> categories = new ArrayList<ArticleCategory>();
 		for (int i = 0; i < categoryNames.length; i++) {
 			ArticleCategory category = new ArticleCategory();
-			category.setId(i);
 			category.setName(categoryNames[i]);
 			if (i > 0 && i < 5) {
 				category.setParentCategory(categories.get(0));

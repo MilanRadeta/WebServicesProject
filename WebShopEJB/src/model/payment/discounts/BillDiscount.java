@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -14,7 +15,7 @@ public class BillDiscount implements Serializable {
 	private static final long serialVersionUID = -2315126859815709736L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id; //unique
 	@ManyToOne
 	private Bill bill;

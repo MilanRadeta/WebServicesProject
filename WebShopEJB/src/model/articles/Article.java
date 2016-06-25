@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table
@@ -15,13 +18,14 @@ public class Article implements Serializable {
 	private static final long serialVersionUID = -7264390151265136042L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id; // unique
 	private String name;
 	@ManyToOne
 	private ArticleCategory articleCategory;
 	private double price; // unsigned
 	private double inStock; // unsigned, if it becomes lower than minInStock inform seller
+	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 	private boolean neededInStock;
 	private ArticleStatus status;

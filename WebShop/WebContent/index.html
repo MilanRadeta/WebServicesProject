@@ -15,8 +15,11 @@
 		<title>WebShop</title>
 	</head>
 	<body data-ng-app="app">
-		<div class="col-md-4 col-md-offset-5">
-			<h1>WebShop</h1>
+		<div>
+			<h1 align="center">WebShop</h1>
+		</div>
+		<div>
+			<button data-ng-if="isLoggedIn()" data-ng-click="logout()">Logout</button>
 		</div>
 		<div ui-view></div>
 	</body>

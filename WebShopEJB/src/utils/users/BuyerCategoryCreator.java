@@ -7,7 +7,7 @@ import model.users.buyers.BuyerCategory;
 
 public class BuyerCategoryCreator {
 
-	public List<BuyerCategory> createCategories() {
+	public static List<BuyerCategory> createCategories() {
 		String[] categoryNames =
 			{
 				"Bronzani kupac",
@@ -17,7 +17,6 @@ public class BuyerCategoryCreator {
 		List<BuyerCategory> categories = new ArrayList<BuyerCategory>();
 		for (int i = 0; i < categoryNames.length; i++) {
 			BuyerCategory category = new BuyerCategory();
-			category.setId(i);
 			category.setName(categoryNames[i]);
 			// TODO: set payment bonuses
 			categories.add(category);

@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import model.articles.ArticleCategory;
 
@@ -18,11 +21,13 @@ public class SaleEvent implements Serializable {
 	private static final long serialVersionUID = -2064753681681715061L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id; //unique
 	private String name;
-	private Date from;
-	private Date to;
+	@Temporal(TemporalType.TIME)
+	private Date actionFrom;
+	@Temporal(TemporalType.TIME)
+	private Date actionTo;
 	private double discount;
 	@OneToMany
 	private List<ArticleCategory> categories;
@@ -39,17 +44,18 @@ public class SaleEvent implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getFrom() {
-		return from;
+	
+	public Date getActionFrom() {
+		return actionFrom;
 	}
-	public void setFrom(Date from) {
-		this.from = from;
+	public void setActionFrom(Date actionFrom) {
+		this.actionFrom = actionFrom;
 	}
-	public Date getTo() {
-		return to;
+	public Date getActionTo() {
+		return actionTo;
 	}
-	public void setTo(Date to) {
-		this.to = to;
+	public void setActionTo(Date actionTo) {
+		this.actionTo = actionTo;
 	}
 	public double getDiscount() {
 		return discount;

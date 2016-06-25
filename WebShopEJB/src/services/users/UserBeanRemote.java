@@ -24,5 +24,4 @@ public interface UserBeanRemote {
 	@Path("/logout")
 	public void logout();
 
-	
 }

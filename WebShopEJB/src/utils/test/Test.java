@@ -16,6 +16,7 @@ public class Test {
 	// TODO: test finalItemDiscounts rules
 	
 	public static void main(String[] args) {
+		
 		try {
 			Rete engine = new Rete();
 			engine.reset();

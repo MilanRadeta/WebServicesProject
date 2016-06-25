@@ -1,11 +1,11 @@
 package services.users;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import model.users.Role;
 import model.users.User;
 
 import org.jose4j.jwk.RsaJsonWebKey;
@@ -14,23 +14,29 @@ import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
 
+import dao.users.UserDaoLocal;
+
 @Stateless
 @LocalBean
 @Path("/users")
 public class UserBean implements UserBeanRemote {
 
+	@EJB
+	private UserDaoLocal userDao;
+	
 	private static RsaJsonWebKey senderJwk = null;
 
 	// TODO: create validate JWT token method
 	// TODO: call it in other beans and check user's role
+	
 	
 	@Override
 	public Response login(User user) {
 		if (user.getUsername() != null && user.getUsername().length() > 0
 				&& user.getPassword() != null
 				&& user.getPassword().length() > 0) {
-			if (user.getUsername().equals("test")
-					&& user.getPassword().equals("test")) {
+			User dbUser = userDao.findById(user.getUsername());
+			if (dbUser != null && dbUser.getPassword().equals(user.getPassword())) {
 				if (senderJwk == null) {
 					try {
 						senderJwk = RsaJwkGenerator.generateJwk(2048);
@@ -46,8 +52,7 @@ public class UserBean implements UserBeanRemote {
 				claims.setIssuedAtToNow();
 				claims.setNotBeforeMinutesInThePast(2);
 				claims.setSubject(user.getUsername());
-				claims.setClaim("role", Role.BUYER);
-				// claims.setClaim("role", user.getRole().toString());
+				claims.setClaim("role", dbUser.getRole().toString());
 
 				JsonWebSignature jws = new JsonWebSignature();
 				jws.setPayload(claims.toJson());

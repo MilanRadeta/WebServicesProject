@@ -7,9 +7,12 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import model.payment.discounts.BillDiscount;
 import model.users.Buyer;
@@ -19,8 +22,9 @@ public class Bill implements Serializable {
 	private static final long serialVersionUID = -5381510478428079568L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id; // unique
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	@ManyToOne
 	private Buyer buyer;
