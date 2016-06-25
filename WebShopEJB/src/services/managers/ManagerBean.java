@@ -3,13 +3,20 @@ package services.managers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 
 import model.articles.ArticleCategory;
 import model.payment.discounts.SaleEvent;
+import model.users.Role;
+import model.users.User;
 import model.users.buyers.BuyerCategory;
+import services.users.UserBean;
+import dao.users.buyers.BuyerCategoryDaoLocal;
 
 /**
  * Session Bean implementation class ManagerBean
@@ -19,12 +26,26 @@ import model.users.buyers.BuyerCategory;
 @Path("/managers")
 public class ManagerBean implements ManagerBeanRemote {
 
+	@Context
+	private HttpHeaders httpHeaders;
+	
+	@EJB
+	private UserBean userBean;
+	
+	@EJB
+	private BuyerCategoryDaoLocal buyerCategoryDao;
+	
+	// TODO: all entities must eagerly fetch
+	
 	@Override
 	public List<BuyerCategory> getBuyerCategories() {
-		// TODO: check if manager is logged in
-		// TODO: get categories from database
-		List<BuyerCategory> categories = new ArrayList<BuyerCategory>();
-		return categories;
+		User user = userBean.validateJWTToken(httpHeaders.getRequestHeaders().getFirst("Authorization"));
+		System.out.println(user);
+		if (user != null && user.getRole() == Role.MANAGER) {
+			List<BuyerCategory> categories = buyerCategoryDao.findAll();
+			return categories;
+		}
+		return null;
 	}
 
 	@Override

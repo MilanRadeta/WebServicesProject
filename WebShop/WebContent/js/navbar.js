@@ -25,6 +25,18 @@
 				 		name: "Home",
 				 		state: "manager"
 				 	},
+ 		            {
+ 		            	name: "Kupci",
+ 		            	state: "manager.buyerCategories"
+ 		            },
+ 		            {
+ 		            	name: "Artikli",
+ 		            	state: "manager.articleCategories"
+ 		            },
+ 		            {
+ 		            	name: "Akcije",
+ 		            	state: "manager.saleEvents"
+ 		            },
 				 	{
 				 		name: "Logout",
 				 		onClick: $rootScope.logout
@@ -48,7 +60,10 @@
 		}
 		
 		$scope.isActive = function (option) {
-			return option.state == $state.name;
+			if (option.state) {
+				return option.state == $state.current.name;
+			}
+			return false;
 		};
 		
 		$scope.isLoggedIn = function() {

@@ -1,40 +1,36 @@
 (function(angular) {
-	var app = angular.module("app", ["navbar", "login", "ui.router", "authentication"]);
+	var app = angular.module("app", ["navbar", "login", "manager", "buyer", "ui.router", "authentication"]);
 	app.config(function config($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise("/login");
-		$stateProvider
-			.state(
-				"login",
-				{
-					url: "/login",
-					templateUrl: "login.html",
-					controller: "loginController"
-				}
-			)
-			.state(
-				"buyer",
-				{
-					url: "/",
-					templateUrl: "buyer.html",
-					controller: "buyerController"
-				}
-			)
-			.state(
-				"manager",
-				{
-					url: "/",
-					templateUrl: "manager.html",
-					controller: "managerController"
-				}
-			)
-			.state(
-				"seller",
-				{
-					url: "/",
-					templateUrl: "seller.html",
-					controller: "sellerController"
-				}
-			);
+		$stateProvider.state("login", {
+			url : "/login",
+			templateUrl : "login.html",
+			controller : "loginController"
+		}).state("manager", {
+			url : "/manager",
+			templateUrl : "manager.html",
+			controller : "managerController"
+		}).state("manager.buyerCategories", {
+			url : "/buyerCategories",
+			templateUrl : "managerBuyerCategories.html",
+			controller : "managerBuyerCategoriesController"
+		}).state("manager.articleCategories", {
+			url : "/articleCategories",
+			templateUrl : "manager.html",
+			controller : "managerController"
+		}).state("manager.saleEvents", {
+			url : "/saleEvents",
+			templateUrl : "manager.html",
+			controller : "managerController"
+		}).state("seller", {
+			url : "/seller",
+			templateUrl : "seller.html",
+			controller : "sellerController"
+		}).state("buyer", {
+			url : "/",
+			templateUrl : "buyer.html",
+			controller : "buyerController"
+		});
 	});
 	
 	app.run(function($rootScope, $http, $location, $localStorage, AuthenticationService, $state) {
@@ -47,8 +43,10 @@
         }
 
         $rootScope.checkState = function(toState) {
+        	console.log(toState);
         	var currentUser = AuthenticationService.getCurrentUser();
         	if(currentUser){
+        		console.log(currentUser.role);
         		switch(currentUser.role) {
         		case "BUYER":
         			if (!toState.name.startsWith("buyer")) {
@@ -99,6 +97,7 @@
         $rootScope.getCurrentState = function () {
           return $state.current.name;
         };
+        $rootScope.checkState($state.current);
 	});
 	
 }(angular));

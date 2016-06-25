@@ -51,13 +51,14 @@ public class UserBean implements UserBeanRemote {
 
 				JwtClaims claims = new JwtClaims();
 				claims.setIssuer("webshop");
-				claims.setAudience(user.getUsername());
 				claims.setExpirationTimeMinutesInTheFuture(10);
 				claims.setGeneratedJwtId();
 				claims.setIssuedAtToNow();
 				claims.setNotBeforeMinutesInThePast(2);
 				claims.setSubject(user.getUsername());
 				claims.setClaim("role", dbUser.getRole());
+				claims.setClaim("firstName", dbUser.getFirstName());
+				claims.setClaim("lastName", dbUser.getLastName());
 
 				JsonWebSignature jws = new JsonWebSignature();
 				jws.setPayload(claims.toJson());
@@ -84,6 +85,13 @@ public class UserBean implements UserBeanRemote {
 	}
 	
 	public User validateJWTToken(String token) {
+		if (senderJwk == null) {
+			try {
+				senderJwk = RsaJwkGenerator.generateJwk(2048);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
 		if (token != null) {
 
 			JwtClaims claims = new JwtClaims();
@@ -109,15 +117,13 @@ public class UserBean implements UserBeanRemote {
 		      //  Validate the JWT and process it to the Claims
 		      JwtClaims jwtClaims = jwtConsumer.processToClaims(token);
 		      String username = jwtClaims.getSubject();
-		      if (username.equals(jwtClaims.getAudience().get(0))) {
-		    	  Role role = (Role) jwtClaims.getClaimValue("role");
-		    	  User user = userDao.findByUsername(username);
-		    	  if (user != null && user.getRole() == role) {
-		    		  return user;
-		    	  }
-		      }
+	    	  Role role = Role.valueOf((String) jwtClaims.getClaimValue("role"));
+	    	  User user = userDao.findByUsername(username);
+	    	  if (user != null && user.getRole() == role) {
+	    		  return user;
+	    	  }
 		    } catch (Exception e) {
-		    	return null;
+		    	e.printStackTrace();
 		    }
 		}
 		return null;

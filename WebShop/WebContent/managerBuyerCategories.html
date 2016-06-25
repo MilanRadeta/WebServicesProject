@@ -1,0 +1,16 @@
+<h3>Kategorije kupaca</h3>
+<table class="table table-bordered" data-ng-repeat="buyerCategory in buyerCategories">
+	<tr>
+		<th colspan="3">{{buyerCategory.name}}</th>
+	</tr>
+	<tr>
+		<th>MIN PLAĆENO</th>
+		<th>MAX PLAĆENO</th>
+		<th>PROCENAT OD PLAĆENOG</th>
+	</tr>
+	<tr data-ng-repeat="bonus in buyerCategory.paymentPointsBonuses">
+		<td>{{bonus.min}}</td>
+		<td>{{bonus.max}}</td>
+		<td>{{bonus.percent}}</td>
+	</tr>
+</table>

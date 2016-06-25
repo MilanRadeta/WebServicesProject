@@ -20,7 +20,7 @@
 							}
 							else {
 								console.log("successful login");
-								$rootScope.checkState();
+								$rootScope.checkState($state.current);
 							}
 						}
 				);

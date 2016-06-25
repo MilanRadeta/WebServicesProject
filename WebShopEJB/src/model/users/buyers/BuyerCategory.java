@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ public class BuyerCategory implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; // unique
 	private String name;
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<PaymentPointsBonus> paymentPointsBonuses = new ArrayList<PaymentPointsBonus>();
 
 	public int getId() {

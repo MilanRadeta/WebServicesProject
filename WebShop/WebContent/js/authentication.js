@@ -30,9 +30,11 @@
 	                    if(tokenPayload.role){
 	                        currentUser.role = tokenPayload.role;
 	                        currentUser.username = tokenPayload.sub;
+	                        currentUser.firstName = tokenPayload.firstName;
+	                        currentUser.lastName = tokenPayload.lastName;
 	                    }
 	                    $localStorage.currentUser = currentUser;
-	                    $http.defaults.headers.common.Authorization = response.token;
+	                    $http.defaults.headers.common.Authorization = response.data;
 	                    callback(true);
 	                } else {
 	                    callback(false);
