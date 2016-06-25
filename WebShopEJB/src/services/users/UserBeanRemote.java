@@ -3,6 +3,7 @@ package services.users;
 import javax.ejb.Remote;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,7 +19,7 @@ public interface UserBeanRemote {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/login")
-	public Response login(User user);
+	public Response login(@HeaderParam("Authentication") String token, User user);
 
 	@GET
 	@Path("/logout")

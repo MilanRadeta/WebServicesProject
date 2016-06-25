@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +23,7 @@ import javax.persistence.TemporalType;
 @Table
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn( name = "role", discriminatorType=DiscriminatorType.STRING)
+@NamedQuery(name="findUserByUsername", query="SELECT u FROM User u WHERE u.username LIKE :username")
 public class User implements Serializable {
 	private static final long serialVersionUID = -7746078774107447865L;
 	

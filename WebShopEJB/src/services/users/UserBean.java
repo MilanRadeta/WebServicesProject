@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
+import model.users.Role;
 import model.users.User;
 
 import org.jose4j.jwk.RsaJsonWebKey;
@@ -13,6 +14,8 @@ import org.jose4j.jwk.RsaJwkGenerator;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.consumer.JwtConsumer;
+import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 
 import dao.users.UserDaoLocal;
 
@@ -26,17 +29,17 @@ public class UserBean implements UserBeanRemote {
 	
 	private static RsaJsonWebKey senderJwk = null;
 
-	// TODO: create validate JWT token method
 	// TODO: call it in other beans and check user's role
 	
-	
 	@Override
-	public Response login(User user) {
+	public Response login(String token, User user) {
+		if (validateJWTToken(token) != null) {
+			return Response.status(200).entity(token).build();
+		}
 		if (user.getUsername() != null && user.getUsername().length() > 0
 				&& user.getPassword() != null
 				&& user.getPassword().length() > 0) {
-			// TODO: change to query by username
-			User dbUser = userDao.findById(user.getUsername());
+			User dbUser = userDao.findByUsername(user.getUsername());
 			if (dbUser != null && dbUser.getPassword().equals(user.getPassword())) {
 				if (senderJwk == null) {
 					try {
@@ -48,18 +51,18 @@ public class UserBean implements UserBeanRemote {
 
 				JwtClaims claims = new JwtClaims();
 				claims.setIssuer("webshop");
+				claims.setAudience(user.getUsername());
 				claims.setExpirationTimeMinutesInTheFuture(10);
 				claims.setGeneratedJwtId();
 				claims.setIssuedAtToNow();
 				claims.setNotBeforeMinutesInThePast(2);
 				claims.setSubject(user.getUsername());
-				claims.setClaim("role", dbUser.getRole().toString());
+				claims.setClaim("role", dbUser.getRole());
 
 				JsonWebSignature jws = new JsonWebSignature();
 				jws.setPayload(claims.toJson());
 				jws.setKeyIdHeaderValue(senderJwk.getKeyId());
 				jws.setKey(senderJwk.getPrivateKey());
-
 				jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
 
 				String jwt = null;
@@ -78,8 +81,46 @@ public class UserBean implements UserBeanRemote {
 
 	@Override
 	public void logout() {
-		// TODO Auto-generated method stub
+	}
+	
+	public User validateJWTToken(String token) {
+		if (token != null) {
 
+			JwtClaims claims = new JwtClaims();
+
+			JsonWebSignature jws = new JsonWebSignature();
+			jws.setPayload(claims.toJson());
+			jws.setKeyIdHeaderValue(senderJwk.getKeyId());
+			jws.setKey(senderJwk.getPrivateKey());
+
+			jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
+			
+			JwtConsumer jwtConsumer = new JwtConsumerBuilder()
+				.setRequireExpirationTime()
+				.setRequireIssuedAt()
+				.setRequireExpirationTime()
+				.setRequireJwtId()
+				.setRequireNotBefore()
+				.setRequireSubject()
+				.setExpectedIssuer("webshop")
+				.setVerificationKey(senderJwk.getKey())
+				.build();
+			try {
+		      //  Validate the JWT and process it to the Claims
+		      JwtClaims jwtClaims = jwtConsumer.processToClaims(token);
+		      String username = jwtClaims.getSubject();
+		      if (username.equals(jwtClaims.getAudience().get(0))) {
+		    	  Role role = (Role) jwtClaims.getClaimValue("role");
+		    	  User user = userDao.findByUsername(username);
+		    	  if (user != null && user.getRole() == role) {
+		    		  return user;
+		    	  }
+		      }
+		    } catch (Exception e) {
+		    	return null;
+		    }
+		}
+		return null;
 	}
 
 }

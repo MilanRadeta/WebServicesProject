@@ -26,8 +26,10 @@
 	                    var currentUser = { username: username, token: response.data };
 	                    var tokenPayload = jwtHelper.decodeToken(response.data);
 
+	                    console.log(tokenPayload);
 	                    if(tokenPayload.role){
 	                        currentUser.role = tokenPayload.role;
+	                        currentUser.username = tokenPayload.sub;
 	                    }
 	                    $localStorage.currentUser = currentUser;
 	                    $http.defaults.headers.common.Authorization = response.token;
