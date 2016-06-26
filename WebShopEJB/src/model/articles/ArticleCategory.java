@@ -2,11 +2,11 @@ package model.articles;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,8 +17,9 @@ public class ArticleCategory implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; //unique
-	@ManyToOne
-	private ArticleCategory parentCategory;
+	@Column(unique=true, nullable=false)
+	private String code;
+	private boolean consumerArticle;
 	private String name;
 	private double maxDiscount;
 
@@ -30,12 +31,20 @@ public class ArticleCategory implements Serializable {
 		this.id = id;
 	}
 
-	public ArticleCategory getParentCategory() {
-		return parentCategory;
+	public String getCode() {
+		return code;
 	}
 
-	public void setParentCategory(ArticleCategory parentCategory) {
-		this.parentCategory = parentCategory;
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public boolean isConsumerArticle() {
+		return consumerArticle;
+	}
+
+	public void setConsumerArticle(boolean consumerArticle) {
+		this.consumerArticle = consumerArticle;
 	}
 
 	public String getName() {

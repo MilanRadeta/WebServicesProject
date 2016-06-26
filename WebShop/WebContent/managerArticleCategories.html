@@ -1,0 +1,31 @@
+<h3>Kategorije artikala</h3>
+<table class="table table-bordered form-group" data-ng-repeat="articleCategory in articleCategories">
+	<tr>
+		<th>ŠIFRA</th>
+		<th>NAZIV</th>
+		<th>MAKSIMALAN DOZVOLJENI POPUST (%)</th>
+		<th>ROBA ŠIROKE POTROŠNJE NA VELIKO</th>
+	</tr>
+	<tr>
+		<td><input class="form-control" type="text" data-ng-model="articleCategory.code"></td>
+		<td><input class="form-control" type="text" data-ng-model="articleCategory.name"></td>
+		<td><input class="form-control" type="text" data-ng-model="articleCategory.name"></td>
+		<td>MIN PLAĆENO</td>
+		<td>MAX PLAĆENO</td>
+		<td>PROCENAT OD PLAĆENOG (%)</td>
+	</tr>
+	<tr data-ng-repeat="bonus in buyerCategory.paymentPointsBonuses">
+		<td><input class="form-control" type="number" min="0" step="0.01" data-ng-model="bonus.min"></td>
+		<td><input class="form-control" type="number" min="0" step="0.01" data-ng-model="bonus.max"></td>
+		<td><input class="form-control" type="number" min="0" step="0.01" max="100" data-ng-model="bonus.percent"></td>
+		<td><button class="btn btn-primary" data-ng-click="remove(buyerCategory, bonus)">Briši</button></td>
+	</tr>
+	<tr>
+		<td><button class="btn btn-primary" data-ng-click="add(buyerCategory)">Dodaj</button></td>
+	</tr>
+	<tr>
+		<td>
+		<button class="btn btn-primary" data-ng-click="sendNewBonuses(buyerCategory)">Potvrdi izmene</button>
+		</td>
+	</tr>
+</table>

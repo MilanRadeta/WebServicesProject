@@ -27,7 +27,7 @@
         (salience 5))
     ?bill <- (bill (originalTotalPrice ?originalTotalPrice &:(> ?originalTotalPrice 200000)))
     =>
-    (createBillDiscount ?bill 0.05 (get-member DiscountType BASE))
+    (createBillDiscount ?bill 5 (get-member DiscountType BASE))
     )
 
 (defrule bill-discount-2
@@ -40,7 +40,7 @@
     ?bill <- (bill (buyer ?buyer) (date ?billDate))
     (buyer (OBJECT ?buyer) (registrationDate ?date &:(> (getDateDifferenceInYears ?date ?billDate) 2)))
     =>
-    (createBillDiscount ?bill 0.01 (get-member DiscountType ADDITIONAL))
+    (createBillDiscount ?bill 1 (get-member DiscountType ADDITIONAL))
     )
 
 (defrule bill-discount-3
@@ -55,7 +55,7 @@
     (buyer (OBJECT ?buyer) (category ?category))
     (buyerCategory (OBJECT ?category) (name ?name |"Srebrni kupac" |"Zlatni kupac"))
     =>
-    (createBillDiscount ?bill 0.01 (get-member DiscountType ADDITIONAL))
+    (createBillDiscount ?bill 1 (get-member DiscountType ADDITIONAL))
     )
 
 (defrule bill-discount-4
@@ -78,6 +78,6 @@
             )
         )
     =>
-    (createBillDiscount ?bill 0.03 (get-member DiscountType ADDITIONAL))
+    (createBillDiscount ?bill 3 (get-member DiscountType ADDITIONAL))
     )
 

@@ -45,6 +45,6 @@
         (modify ?item (discountPercentage ?maxDiscount))
         )
     (modify ?item (originalTotalPrice (* ?item.units ?item.unitPrice)))
-    (modify ?item (totalPrice (- ?item.originalTotalPrice (* ?item.originalPrice ?item.discountPercentage))))
+    (modify ?item (totalPrice (- ?item.originalTotalPrice (* ?item.originalPrice (/ ?item.discountPercentage 100)))))
     )
 

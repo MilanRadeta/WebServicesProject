@@ -12,5 +12,5 @@
     ?category <- (buyerCategory (OBJECT ?buyer.category))
     (paymentPointsBonus (buyerCategory ?buyer.category) (percent ?percent) (min ?min &:(>= ?totalPrice ?min)) (max ?max &:(<= ?totalPrice ?max)))
     =>
-    (modify ?buyer (points (+ ?points (round (* ?percent ?totalPrice)))))
+    (modify ?buyer (points (+ ?points (round (* (/ ?percent 100) ?totalPrice)))))
     )

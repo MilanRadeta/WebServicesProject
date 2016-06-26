@@ -14,12 +14,14 @@ import model.users.Manager;
 import model.users.Seller;
 import model.users.User;
 import model.users.buyers.BuyerCategory;
+import model.users.buyers.PaymentPointsBonus;
 import utils.articles.ArticleCategoryCreator;
 import utils.users.BuyerCategoryCreator;
 import dao.articles.ArticleCategoryDaoLocal;
 import dao.users.BuyerDaoLocal;
 import dao.users.UserDaoLocal;
 import dao.users.buyers.BuyerCategoryDaoLocal;
+import dao.users.buyers.PaymentPointsBonusDaoLocal;
 
 /**
  * Session Bean implementation class SellerBean
@@ -38,6 +40,9 @@ public class InitBean implements InitBeanRemote {
 	@EJB
 	private BuyerCategoryDaoLocal buyerCategoryDao;
 
+	@EJB
+	private PaymentPointsBonusDaoLocal pointsDao;
+	
 	@EJB
 	private ArticleCategoryDaoLocal articleCategoryDao;
 
@@ -66,7 +71,9 @@ public class InitBean implements InitBeanRemote {
 		for (BuyerCategory buyerCategory : buyerCategories) {
 
 			buyerCategoryDao.persist(buyerCategory);
-
+			for (PaymentPointsBonus bonus : buyerCategory.getPaymentPointsBonuses()) {
+				pointsDao.persist(bonus);
+			}
 		}
 
 		List<ArticleCategory> articleCategories = ArticleCategoryCreator

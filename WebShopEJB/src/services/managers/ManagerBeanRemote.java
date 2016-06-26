@@ -9,7 +9,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import model.articles.ArticleCategory;
@@ -37,7 +36,7 @@ public interface ManagerBeanRemote {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/addArticleCategory")
-	public String addArticleCategory(ArticleCategory category, @QueryParam("hasParent") boolean hasParent);
+	public String addArticleCategory(ArticleCategory category);
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

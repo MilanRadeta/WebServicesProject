@@ -61,14 +61,9 @@ public class ManagerBean implements ManagerBeanRemote {
 	}
 
 	@Override
-	public String addArticleCategory(ArticleCategory category, boolean hasParent) {
+	public String addArticleCategory(ArticleCategory category) {
 		// TODO: check if manager is logged in
 		// TODO: if id exists return error message
-		if (hasParent) {
-			// TODO: get parent category from DB
-			ArticleCategory parentCategory = new ArticleCategory();
-			category.setParentCategory(parentCategory);
-		}
 		// TODO: persist
 		return null;
 		

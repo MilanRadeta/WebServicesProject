@@ -10,7 +10,7 @@
     ?item <- (item (bill ?bill.OBJECT))
     ?sameItem <- (item (bill ?differentBill.OBJECT) (article ?item.article))
     =>
-    (createItemDiscount ?bill ?item 0.02 (get-member DiscountType ADDITIONAL))
+    (createItemDiscount ?bill ?item 2 (get-member DiscountType ADDITIONAL))
     )
 
 (defrule additional-item-discount-2
@@ -26,7 +26,7 @@
     ?otherItem <- (item (bill ?differentBill.OBJECT))
     ?otherArticle <- (article (OBJECT ?otherItem.article) (articleCategory ?category &?article.articleCategory))
     =>
-    (createItemDiscount ?bill ?item 0.01 (get-member DiscountType ADDITIONAL))
+    (createItemDiscount ?bill ?item 1 (get-member DiscountType ADDITIONAL))
     )
 
 (defrule additional-item-discount-3
@@ -44,8 +44,8 @@
     ?article <- (article (OBJECT ?item.article) (articleCategory ?category))
     ?saleEvent <- (saleEvent
         (categories ?categories &:(call ?categories contains ?category))
-        (from ?from &:(> (call ?billDate compareTo ?from) 0))
-        (to ?to &:(< (call ?billDate compareTo ?to) 0))
+        (actionFrom ?from &:(> (call ?billDate compareTo ?from) 0))
+        (actionTo ?to &:(< (call ?billDate compareTo ?to) 0))
         (discount ?discount))
     =>
     (createItemDiscount ?bill ?item ?discount (get-member DiscountType ADDITIONAL))
