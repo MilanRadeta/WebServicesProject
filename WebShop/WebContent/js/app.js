@@ -26,6 +26,14 @@
 			url : "/seller",
 			templateUrl : "seller.html",
 			controller : "sellerController"
+		}).state("seller.articles", {
+			url : "/articles",
+			templateUrl : "sellerArticles.html",
+			controller : "sellerArticlesController"
+		}).state("seller.bills", {
+			url : "/bills",
+			templateUrl : "sellerBills.html",
+			controller : "sellerBillsController"
 		}).state("buyer", {
 			url : "/",
 			templateUrl : "buyer.html",

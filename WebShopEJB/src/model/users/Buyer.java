@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -18,9 +19,9 @@ public class Buyer extends User {
 	// Buyer profile
 	private String address;
 	private double points;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private BuyerCategory category;
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<Bill> paymentHistory;
 
 	public Buyer() {

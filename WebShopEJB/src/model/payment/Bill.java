@@ -9,11 +9,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -21,6 +24,8 @@ import model.payment.discounts.BillDiscount;
 import model.users.Buyer;
 
 @Entity
+@Table
+@NamedQuery(name="findOrderedBills", query="SELECT b FROM Bill b WHERE b.state = \"ORDERED\"")
 public class Bill implements Serializable {
 	private static final long serialVersionUID = -5381510478428079568L;
 	
@@ -30,7 +35,7 @@ public class Bill implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
 	private Date date;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Buyer buyer;
 	@Column(nullable=false)
 	@Enumerated(EnumType.STRING)
@@ -45,9 +50,9 @@ public class Bill implements Serializable {
 	private int spentPoints;
 	@Column(nullable=false)
 	private int receivedPoints;
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<BillDiscount> discounts = new ArrayList<BillDiscount>();
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<Item> items = new ArrayList<>();
 
 	public int getId() {

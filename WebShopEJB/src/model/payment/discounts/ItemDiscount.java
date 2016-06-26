@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,9 +24,9 @@ public class ItemDiscount implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; // unique
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Bill bill;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Item item;
 	@Column(nullable = false)
 	private double discountPercentage;

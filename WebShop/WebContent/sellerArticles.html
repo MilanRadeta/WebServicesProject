@@ -1,0 +1,26 @@
+<h3>Artikli</h3>
+<table class="table table-bordered form-group">
+	<thead>
+		<tr>
+			<th colspan="6">ARTIKLI KOJE JE POTREBNO PORUČITI</th>
+		<tr>
+		<tr>
+			<th>NAZIV</th>
+			<th>KATEGORIJA</th>
+			<th>BROJNO STANJE</th>
+			<th>MINIMALNO POTREBNO BROJNO STANJE</th>
+			<th>KOLIČINA KOJA SE PORUČUJE</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr data-ng-repeat="article in neededArticles">
+			<td data-ng-model="article.name"></td>
+			<td data-ng-model="article.articleCategory.name"></td>
+			<td data-ng-model="article.inStock"></td>
+			<td data-ng-model="article.minInStock"></td>
+			<td><input class="form-control" type="number" min="0"
+				data-ng-model="article.count"></td>
+			<td><button class="btn btn-primary" data-ng-disabled="ordering" data-ng-click="order(article)">Poruči</button></td>
+		</tr>
+	</tbody>
+</table>

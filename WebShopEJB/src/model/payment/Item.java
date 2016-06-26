@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,12 +23,12 @@ public class Item implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
-	@ManyToOne
+
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Bill bill;
 	@Column(nullable=false)
 	private int itemNumber; // unique in bill
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Article article;
 	@Column(nullable=false)
 	private double unitPrice; // on that day
@@ -39,7 +40,7 @@ public class Item implements Serializable {
 	private double discountPercentage;
 	@Column(nullable=false)
 	private double totalPrice; // with all discounts
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<ItemDiscount> discounts = new ArrayList<ItemDiscount>();
 
 	public int getId() {

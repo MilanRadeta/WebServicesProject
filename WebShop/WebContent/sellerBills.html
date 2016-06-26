@@ -1,0 +1,28 @@
+<h3>Računi</h3>
+<table class="table table-bordered form-group">
+	<thead>
+		<tr>
+			<th colspan="8">RAČUNI</th>
+		<tr>
+		<tr>
+			<th>ŠIFRA</th>
+			<th>DATUM I VREME</th>
+			<th>KUPAC</th>
+			<th>ORIGINALNA UKUPNA CENA</th>
+			<th>UKUPNA CENA</th>
+			<th>POPUST NA CEO RAČUN</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr data-ng-repeat="bill in orderedBills">
+			<td data-ng-model="bill-id"></td>
+			<td data-ng-model="bill.date"></td>
+			<td>{{bill.firstName}} {{bill.lastName}} ({{bill.username}})</td>
+			<td data-ng-model="bill.originalTotalPrice"></td>
+			<td data-ng-model="bill.totalPrice"></td>
+			<td data-ng-model="bill.discountPercentage"></td>
+			<td><button class="btn btn-primary" data-ng-disabled="processing" data-ng-click="process(bill)">Obradi</button></td>
+			<td><button class="btn btn-primary" data-ng-disabled="processing" data-ng-click="cancel(bill)">Otkaži</button></td>
+		</tr>
+	</tbody>
+</table>

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class PaymentPointsBonus implements Serializable {
 	private double max;
 	@Column(nullable = false)
 	private double percent;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JsonIgnore
 	private BuyerCategory buyerCategory;
 

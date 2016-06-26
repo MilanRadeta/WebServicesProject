@@ -9,33 +9,30 @@ import model.users.Buyer;
 import model.users.Role;
 
 public class Test {
-	
 
-	// TODO: test baseItemDiscounts rules
-	// TODO: test additionalItemDiscounts rules
-	// TODO: test finalItemDiscounts rules
-	
+	// TODO: test all rules
+
 	public static void main(String[] args) {
-		
+
 		try {
 			Rete engine = new Rete();
 			engine.reset();
 			engine.eval("(watch all)");
 			engine.batch("jess/templates/templates.clp");
-			
+
 			Buyer buyer = new Buyer();
 			buyer.setUsername("testUsername");
-			
+
 			Bill bill = new Bill();
 			bill.setBuyer(buyer);
-			
+
 			Item item = new Item();
 			item.setBill(bill);
-			
+
 			Article article = new Article();
 			article.setId(1);
 			item.setArticle(article);
-			
+
 			bill.getItems().add(item);
 			System.out.println(Role.BUYER.toString());
 			System.out.println(Role.BUYER.name());
@@ -51,8 +48,7 @@ public class Test {
 			engine.eval("(printout t (call ?f.role toString) crlf)");
 			engine.eval("(printout t (= ?f.role (get-member Role BUYER)) crlf)");
 			engine.eval("(facts)");
-			
-			
+
 		} catch (JessException e) {
 			e.printStackTrace();
 		}

@@ -47,6 +47,8 @@ public class InitBean implements InitBeanRemote {
 	private ArticleCategoryDaoLocal articleCategoryDao;
 
 	public void createDatabase() {
+		// TODO: create articles
+		
 		System.out.println("createDatabase");
 		User user = new Manager();
 		user.setFirstName("Manuel");

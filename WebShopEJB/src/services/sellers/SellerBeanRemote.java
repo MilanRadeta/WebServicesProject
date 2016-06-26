@@ -6,7 +6,6 @@ import javax.ejb.Remote;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,28 +21,28 @@ public interface SellerBeanRemote {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/checkArticles")
+	@Path("/articles")
 	public List<Article> checkArticles();
 
-	@POST
+	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/orderArticle")
+	@Path("/articles")
 	public void orderArticle(Article article, @QueryParam("count") int count);
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getOrderedBills")
+	@Path("/bills")
 	public List<Bill> getOrderedBills();
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/processBill")
+	@Path("/bills")
 	public List<Item> processBill(Bill bill);
 
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/cancelBill")
+	@Path("/bills")
 	public void cancelBill(Bill bill);
 	
 }
