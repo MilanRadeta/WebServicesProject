@@ -46,8 +46,6 @@ public class ManagerBean implements ManagerBeanRemote {
 	@EJB
 	private SaleEventDaoLocal saleDao;
 
-	// TODO: all entities must eagerly fetch
-
 	@Override
 	public List<BuyerCategory> getBuyerCategories() {
 		User user = userBean.validateJWTToken(httpHeaders.getRequestHeaders()

@@ -25,6 +25,15 @@
 						name : "Home",
 						state : "buyer"
 					}, {
+						name : "Profil",
+						state : "profile"
+					}, {
+						name : "Istorijat",
+						state : "paymentHistory"
+					}, {
+						name : "Shop",
+						state : "shop"
+					}, {
 						name : "Logout",
 						onClick : $rootScope.logout
 					} ];
@@ -51,6 +60,12 @@
 					$scope.options = [ {
 						name : "Home",
 						state : "seller"
+					}, {
+						name : "Artikli",
+						state : "articles"
+					}, {
+						name : "Računi",
+						state : "bills"
 					}, {
 						name : "Logout",
 						onClick : $rootScope.logout

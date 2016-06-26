@@ -23,35 +23,35 @@ public interface BuyerBeanRemote {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getBuyerProfile")
+	@Path("/profile")
 	public Map<String, Object> getBuyerProfile();
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getPaymentHistory")
+	@Path("/paymentHistory")
 	public List<Bill> getPaymentHistory();
 
-	// TODO: change to work with get method
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/search")
 	public List<ArticleResult> searchArticle(ArticleSearchQuery query);
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addItemToCart")
+	@Path("/cart")
 	public ShoppingCart addItemToCart(Article article, @QueryParam("count") int count);
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/formBill")
+	@Path("/bill")
 	public Bill formBill();
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.TEXT_PLAIN)
-	@Path("/payBill")
+	@Path("/bill")
 	public Bill payBill(int spentPoints);
 
 }

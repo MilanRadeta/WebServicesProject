@@ -1,0 +1,49 @@
+<h3>Istorijat računa</h3>
+<table class="table table-bordered form-group">
+	<thead>
+		<tr>
+			<th colspan="5">{{buyerCategory.name}}</th>
+		</tr>
+		<tr>
+			<th>DATUM I VREME</th>
+			<th>STANJE</th>
+			<th>ORIGINALNA UKUPNA CENA</th>
+			<th>UKUPNA CENA</th>
+			<th>POPUST NA RAČUN</th>
+			<th>POTROŠENO POENA</th>
+			<th>DOBIJENO POENA</th>
+			<th>STAVKE</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr data-ng-repeat="bill in paymentHistory">
+			<td data-ng-model="bill.date" />
+			<td data-ng-model="bill.state" />
+			<td data-ng-model="bill.originalTotalPrice" />
+			<td data-ng-model="bill.totalPrice" />
+			<td data-ng-model="bill.discountPercentage" />
+			<td data-ng-model="bill.spentPoints" />
+			<td data-ng-model="bill.receivedPoints" />
+			<td>
+				<table>
+					<tr>
+						<th>NAZIV</th>
+						<th>KOLIČINA</th>
+						<th>JEDINIČNA CENA</th>
+						<th>ORIGINALNA UKUPNA CENA</th>
+						<th>UKUPNA CENA</th>
+						<th>POPUST</th>
+					</tr>
+					<tr data-ng-repeat="item in bill.items | orderBy: 'item.itemNumber'">
+						<td data-ng-model="item.article.name"/>
+						<td data-ng-model="item.units"/>
+						<td data-ng-model="item.unitPrice"/>
+						<td data-ng-model="item.originalTotalPrice"/>
+						<td data-ng-model="item.totalPrice"/>
+						<td data-ng-model="item.discountPercentage"/>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

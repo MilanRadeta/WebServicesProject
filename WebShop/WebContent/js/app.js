@@ -38,6 +38,18 @@
 			url : "/",
 			templateUrl : "buyer.html",
 			controller : "buyerController"
+		}).state("buyer.profile", {
+			url : "/profile",
+			templateUrl : "buyerProfile.html",
+			controller : "buyerProfileController"
+		}).state("buyer.paymentHistory", {
+			url : "/paymentHistory",
+			templateUrl : "buyerPaymentHistory.html",
+			controller : "buyerPaymentHistoryController"
+		}).state("buyer.shop", {
+			url : "/shop",
+			templateUrl : "buyerShop.html",
+			controller : "buyerShopController"
 		});
 	});
 	

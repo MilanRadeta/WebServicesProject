@@ -1,0 +1,144 @@
+<div data-ng-hide="cartShown || billShown">
+	<h3>Pretraga</h3>
+	<table class="table table-bordered form-group">
+		<tr>
+			<th>ŠIFRA</th>
+			<th>NAZIV</th>
+			<th>KATEGORIJA</th>
+			<th>MIN CENA</th>
+			<th>MAX CENA</th>
+		</tr>
+		<tr>
+			<td><input class="form-control" type="text"
+				data-ng-model="searchQuery.code"></td>
+			<td><input class="form-control" type="text"
+				data-ng-model="searchQuery.name"></td>
+			<td><select multiple="multiple"
+				data-ng-model="searchQuery.categories"
+				data-ng-options="category for category in articleCategories"></select></td>
+			<td><input class="form-control" type="number" min="0"
+				data-ng-model="searchQuery.minPrice"></td>
+			<td><input class="form-control" type="number" min="0"
+				data-ng-model="searchQuery.maxPrice"></td>
+		</tr>
+		<tr>
+			<td colspan="5">
+				<button class="btn btn-primary" data-ng-click="search()">Pretraži</button>
+			</td>
+		</tr>
+	</table>
+	<h3>Rezultati pretrage</h3>
+	<table class="table table-bordered form-group"
+		data-ng-hide="cartShown || billShown">
+		<tr>
+			<th>ŠIFRA</th>
+			<th>NAZIV</th>
+			<th>KATEGORIJA</th>
+			<th>JEDINIČNA CENA</th>
+			<th>AKCIJE</th>
+			<th>KOLIČINA</th>
+		</tr>
+		<tr data-ng-repeat="result in searchResults">
+			<td data-ng-model="result.code"></td>
+			<td data-ng-model="result.name"></td>
+			<td data-ng-model="result.articleCategory.name"></td>
+			<td data-ng-model="result.unitPrice"></td>
+			<td data-ng-model="saleEvents[result.articleCategory.name]"></td>
+			<td><input class="form-control" type="number" min="1"
+				data-ng-model="result.units"></td>
+			<td><button class="btn btn-primary"
+					data-ng-click="addToCart(result)">Dodaj u korpu</button></td>
+		</tr>
+		<tr>
+			<td colspan="5">
+				<button class="btn btn-primary" data-ng-click="showCart()">Prikaži
+					korpu</button>
+			</td>
+		</tr>
+	</table>
+</div>
+<div data-ng-show="cartShown || billShown">
+	<h3 data-ng-show="cartShown">Korpa</h3>
+	<h3 data-ng-show="billShown">Račun</h3>
+	<table class="table table-bordered form-group"
+		data-ng-show="cartShown || billShown">
+		<tr>
+			<th>ŠIFRA</th>
+			<th>NAZIV</th>
+			<th>KATEGORIJA</th>
+			<th>JEDINIČNA CENA</th>
+			<th>AKCIJE</th>
+			<th>KOLIČINA</th>
+			<th>ORIGINALNA UKUPNA CENA</th>
+			<th>POPUSTI</th>
+			<th>UKUPAN POPUST</th>
+			<th>UKUPNA CENA</th>
+		</tr>
+		<tr data-ng-repeat="item in cart.items">
+			<td data-ng-model="item.code"></td>
+			<td data-ng-model="item.name"></td>
+			<td data-ng-model="item.articleCategory.name"></td>
+			<td data-ng-model="item.unitPrice"></td>
+			<td data-ng-model="saleEvents[item.articleCategory.name]"></td>
+			<td data-ng-model="item.units"></td>
+			<td data-ng-model="item.originalTotalPrice"></td>
+			<td>
+				<table>
+					<tr data-ng-repeat="discount in item.discounts">
+						<td data-ng-model="discount.discountPercentage" />
+						<td data-ng-show="discount.type='BASE'">OSNOVNI</td>
+						<td data-ng-show="discount.type='ADDITIONAL'">DODATNI</td>
+					</tr>
+				</table>
+			</td>
+			<td data-ng-model="item.discoutPercentage"></td>
+			<td data-ng-model="item.totalPrice"></td>
+			<td data-ng-show="cartShown"><button class="btn btn-primary"
+					data-ng-click="removeFromCart(item)">Izbaci iz korpe</button></td>
+		</tr>
+		<tr>
+			<th>ORIGINALNA UKUPNA CENA</th>
+			<td data-ng-model="cart.originalTotalPrice"></td>
+		</tr>
+		<tr>
+			<th>POPUSTI NA RAČUN</th>
+			<td>
+				<table>
+					<tr data-ng-repeat="discount in cart.discounts">
+						<td data-ng-model="discount.discountPercentage" />
+						<td data-ng-show="discount.type='BASE'">OSNOVNI</td>
+						<td data-ng-show="discount.type='ADDITIONAL'">DODATNI</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th>UKUPAN POPUST NA RAČUN</th>
+			<td data-ng-model="cart.discountPercentage"></td>
+		</tr>
+		<tr data-ng-show="billShown">
+			<th>POTROŠENI NAGRADNI POENI</th>
+			<td data-ng-model="cart.spentPoints"></td>
+		</tr>
+		<tr>
+			<th>UKUPNA CENA</th>
+			<td data-ng-model="cart.totalPrice"></td>
+		</tr>
+		<tr>
+			<th>NAGRADNI POENI</th>
+			<td data-ng-model="cart.receivedPoints"></td>
+		</tr>
+		<tr data-ng-show="cartShown">
+			<th>PLAĆANJE NAGRADNIM POENIMA</th>
+			<td><input class="form-control" type="number" min="0"
+				max="buyer.points" data-ng-model="cart.spentPoints"></td>
+		</tr>
+		<tr>
+			<td colspan="5">
+				<button class="btn btn-primary" data-ng-disable="processing"
+					data-ng-click="payBill()">Plati</button>
+			</td>
+		</tr>
+	</table>
+</div>
+
