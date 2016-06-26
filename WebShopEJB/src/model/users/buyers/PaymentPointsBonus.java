@@ -2,6 +2,7 @@ package model.users.buyers;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,17 +15,20 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table
-@NamedQuery(name="findBonusByBuyerCategory", query="SELECT b FROM PaymentPointsBonus b "
-												+ "WHERE b.buyerCategory.id = :id")
+@NamedQuery(name = "findBonusByBuyerCategory", query = "SELECT b FROM PaymentPointsBonus b "
+		+ "WHERE b.buyerCategory.id = :id")
 public class PaymentPointsBonus implements Serializable {
 	private static final long serialVersionUID = -4591451095977557720L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
+	@Column(nullable = false)
 	private double min;
+	@Column(nullable = false)
 	private double max;
+	@Column(nullable = false)
 	private double percent;
 	@ManyToOne
 	@JsonIgnore
@@ -74,11 +78,9 @@ public class PaymentPointsBonus implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj instanceof PaymentPointsBonus) {
 			PaymentPointsBonus other = (PaymentPointsBonus) obj;
-			return other.getId() == id;	
+			return other.getId() == id;
 		}
 		return false;
 	}
 
-	
-	
 }

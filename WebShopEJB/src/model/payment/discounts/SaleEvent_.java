@@ -7,7 +7,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import model.articles.ArticleCategory;
 
-@Generated(value="Dali", date="2016-06-25T15:14:02.068+0200")
+@Generated(value="Dali", date="2016-06-26T03:59:08.346+0200")
 @StaticMetamodel(SaleEvent.class)
 public class SaleEvent_ {
 	public static volatile SingularAttribute<SaleEvent, Integer> id;
@@ -16,4 +16,5 @@ public class SaleEvent_ {
 	public static volatile SingularAttribute<SaleEvent, Date> actionTo;
 	public static volatile SingularAttribute<SaleEvent, Double> discount;
 	public static volatile ListAttribute<SaleEvent, ArticleCategory> categories;
+	public static volatile SingularAttribute<SaleEvent, String> code;
 }

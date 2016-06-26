@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,13 +25,19 @@ public class Item implements Serializable {
 	
 	@ManyToOne
 	private Bill bill;
+	@Column(nullable=false)
 	private int itemNumber; // unique in bill
 	@ManyToOne
 	private Article article;
+	@Column(nullable=false)
 	private double unitPrice; // on that day
+	@Column(nullable=false)
 	private double units;
+	@Column(nullable=false)
 	private double originalTotalPrice;
+	@Column(nullable=false)
 	private double discountPercentage;
+	@Column(nullable=false)
 	private double totalPrice; // with all discounts
 	@OneToMany
 	private List<ItemDiscount> discounts = new ArrayList<ItemDiscount>();

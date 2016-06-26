@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,14 +28,22 @@ public class Bill implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; // unique
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date date;
 	@ManyToOne
 	private Buyer buyer;
+	@Column(nullable=false)
+	@Enumerated(EnumType.STRING)
 	private BillState state;
+	@Column(nullable=false)
 	private double originalTotalPrice;
+	@Column(nullable=false)
 	private double discountPercentage;
+	@Column(nullable=false)
 	private double totalPrice; // with all the discounts - spent points
+	@Column(nullable=false)
 	private int spentPoints;
+	@Column(nullable=false)
 	private int receivedPoints;
 	@OneToMany
 	private List<BillDiscount> discounts = new ArrayList<BillDiscount>();

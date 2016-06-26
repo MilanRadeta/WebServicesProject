@@ -3,7 +3,10 @@ package model.articles;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,15 +23,23 @@ public class Article implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; // unique
+	@Column(nullable=false)
 	private String name;
 	@ManyToOne
 	private ArticleCategory articleCategory;
+	@Column(nullable=false)
 	private double price; // unsigned
+	@Column(nullable=false)
 	private double inStock; // unsigned, if it becomes lower than minInStock inform seller
 	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date creationDate;
+	@Column(nullable=false)
 	private boolean neededInStock;
+	@Column(nullable=false)
+	@Enumerated(EnumType.STRING)
 	private ArticleStatus status;
+	@Column(nullable=false)
 	private double minInStock; // unsigned
 
 	public int getId() {

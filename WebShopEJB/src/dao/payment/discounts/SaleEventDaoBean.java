@@ -9,5 +9,5 @@ import dao.GenericDaoBean;
 @Stateless
 @Local(SaleEventDaoLocal.class)
 public class SaleEventDaoBean extends GenericDaoBean<SaleEvent, Integer> implements SaleEventDaoLocal {
-	
+
 }

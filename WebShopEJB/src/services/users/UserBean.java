@@ -51,7 +51,6 @@ public class UserBean implements UserBeanRemote {
 
 				JwtClaims claims = new JwtClaims();
 				claims.setIssuer("webshop");
-				claims.setExpirationTimeMinutesInTheFuture(10);
 				claims.setGeneratedJwtId();
 				claims.setIssuedAtToNow();
 				claims.setNotBeforeMinutesInThePast(2);
@@ -104,9 +103,7 @@ public class UserBean implements UserBeanRemote {
 			jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
 			
 			JwtConsumer jwtConsumer = new JwtConsumerBuilder()
-				.setRequireExpirationTime()
 				.setRequireIssuedAt()
-				.setRequireExpirationTime()
 				.setRequireJwtId()
 				.setRequireNotBefore()
 				.setRequireSubject()

@@ -1,0 +1,138 @@
+<h3>Akcijski događaji</h3>
+<table class="table table-bordered form-group">
+	<thead>
+		<tr>
+			<th>ŠIFRA</th>
+			<th>NAZIV</th>
+			<th>OD</th>
+			<th>DO</th>
+			<th>POPUST (%)</th>
+			<th>KATEGORIJE ARTIKLA</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr data-ng-repeat="saleEvent in saleEvents">
+			<td>{{saleEvent.code}}</td>
+			<td><input class="form-control" type="text"
+				data-ng-model="saleEvent.name"></td>
+			<td>
+				<p class="input-group">
+					<input type="text" class="form-control"
+						uib-datepicker-popup="dd.MM.yyyy."
+						data-ng-model="saleEvent.actionFrom"
+						is-open="dateFromOpened[saleEvent.id]"
+						datepicker-options="dateOptions" data-ng-required="true"
+						close-text="Close" /> <span class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							data-ng-click="dateFromOpened[saleEvent.id] = true">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</td>
+			<td>
+		        <p class="input-group">
+					<input type="text" class="form-control"
+						uib-datepicker-popup="dd.MM.yyyy."
+						data-ng-model="saleEvent.actionTo"
+						is-open="dateToOpened[saleEvent.id]"
+						datepicker-options="dateOptions" data-ng-required="true"
+						close-text="Close" /> <span class="input-group-btn">
+						<button type="button" class="btn btn-default"
+							data-ng-click="dateToOpened[saleEvent.id] = true">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</p>
+			</td>
+			<td><input class="form-control" type="number" min="0"
+				step="0.01" max="100" data-ng-model="saleEvent.discount"></td>
+			<td>
+				<ul>
+					<li data-ng-repeat="cat in saleEvent.categories">{{cat.name}}</li>
+				</ul>
+				<select data-ng-model="saleEvent.categories" multiple="multiple"
+						data-ng-options="category.name for category in articleCategories" class="form-control">
+			    </select>
+		    </td>
+			<td><button class="btn btn-primary"
+					data-ng-click="change(saleEvent)">Izmeni</button></td>
+		</tr>
+	</tbody>
+</table>
+
+<table class="table table-bordered form-group">
+	<thead>
+		<tr>
+			<th>NOVI AKCIJSKI DOGAĐAJ</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>ŠIFRA</th>
+			<td><input class="form-control" type="text"
+				data-ng-model="newSaleEvent.code"></td>
+		</tr>
+		<tr>
+			<th>NAZIV</th>
+			<td><input class="form-control" type="text"
+				data-ng-model="newSaleEvent.name"></td>
+		</tr>
+		<tr>
+			<th>OD</th>
+			<td>
+				<p class="input-group">
+		          <input type="text" class="form-control"
+		          uib-datepicker-popup="dd.MM.yyyy."
+		          data-ng-model="newSaleEvent.actionFrom"
+		          is-open="newSaleEvent.actionFrom.opened"
+		          datepicker-options="dateOptions"
+		          data-ng-required="true"
+		          close-text="Close"/>
+		          <span class="input-group-btn">
+		            <button type="button" class="btn btn-default"
+		            data-ng-click="newSaleEvent.actionFrom.opened = true">
+		            <i class="glyphicon glyphicon-calendar"></i></button>
+		          </span>
+		        </p>
+	        </td>
+		</tr>
+		<tr>
+			<th>DO</th>
+			<td>
+				<p class="input-group">
+		          <input type="text" class="form-control"
+		          uib-datepicker-popup="dd.MM.yyyy."
+		          data-ng-model="newSaleEvent.actionTo"
+		          is-open="newSaleEvent.actionTo.opened"
+		          datepicker-options="dateOptions"
+		          data-ng-required="true"
+		          close-text="Close"/>
+		          <span class="input-group-btn">
+		            <button type="button" class="btn btn-default"
+		            data-ng-click="newSaleEvent.actionTo.opened = true">
+		            <i class="glyphicon glyphicon-calendar"></i></button>
+		          </span>
+		        </p>
+	        </td>
+		</tr>
+		<tr>
+			<th>POPUST (%)</th>
+			<td><input class="form-control" type="number" min="0"
+				step="0.01" max="100" data-ng-model="newSaleEvent.discount"></td>
+		</tr>
+		<tr>
+			<th>KATEGORIJE ARTIKLA</th>
+			<td>
+				<select data-ng-model="newSaleEvent.categories" multiple="multiple"
+						data-ng-options="category.name for category in articleCategories" class="form-control">
+			    </select>
+		    </td>
+		</tr>
+		<tr>
+			<td>
+				<button class="btn btn-primary" data-ng-click="create()">Kreiraj</button>
+			</td>
+		</tr>
+	</tbody>
+</table>

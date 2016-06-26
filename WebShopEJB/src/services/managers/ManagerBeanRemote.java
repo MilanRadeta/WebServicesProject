@@ -35,18 +35,18 @@ public interface ManagerBeanRemote {
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addArticleCategory")
+	@Path("/articleCategories")
 	public String addArticleCategory(ArticleCategory category);
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getArticleCategories")
+	@Path("/articleCategories")
 	public List<ArticleCategory> getArticleCategories();
 
 	@PUT
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/changeArticleCategory")
+	@Path("/articleCategories")
 	public String changeArticleCategory(ArticleCategory category);
 
 	// Sales Events
@@ -54,18 +54,18 @@ public interface ManagerBeanRemote {
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/createSale")
+	@Path("/saleEvents")
 	public String createSale(SaleEvent event);
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getSales")
+	@Path("/saleEvents")
 	public List<SaleEvent> getSales();
 
 	@PUT
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/changeSale")
+	@Path("/saleEvents")
 	public String changeSale(SaleEvent event);
 	
 }

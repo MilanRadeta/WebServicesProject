@@ -1,5 +1,5 @@
 (function(angular) {
-	var app = angular.module("app", ["navbar", "login", "manager", "buyer", "ui.router", "authentication"]);
+	var app = angular.module("app", ["ui.bootstrap", "navbar", "login", "manager", "buyer", "ui.router", "authentication"]);
 	app.config(function config($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise("/login");
 		$stateProvider.state("login", {
@@ -16,12 +16,12 @@
 			controller : "managerBuyerCategoriesController"
 		}).state("manager.articleCategories", {
 			url : "/articleCategories",
-			templateUrl : "manager.html",
-			controller : "managerController"
+			templateUrl : "managerArticleCategories.html",
+			controller : "managerArticleCategoriesController"
 		}).state("manager.saleEvents", {
 			url : "/saleEvents",
-			templateUrl : "manager.html",
-			controller : "managerController"
+			templateUrl : "managerSaleEvents.html",
+			controller : "managerSaleEventsController"
 		}).state("seller", {
 			url : "/seller",
 			templateUrl : "seller.html",

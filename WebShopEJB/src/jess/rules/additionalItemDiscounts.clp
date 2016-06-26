@@ -45,7 +45,7 @@
     ?saleEvent <- (saleEvent
         (categories ?categories &:(call ?categories contains ?category))
         (actionFrom ?from &:(> (call ?billDate compareTo ?from) 0))
-        (actionTo ?to &:(< (call ?billDate compareTo ?to) 0))
+        (actionTo ?to &:(<= (call ?billDate compareTo ?to) 0))
         (discount ?discount))
     =>
     (createItemDiscount ?bill ?item ?discount (get-member DiscountType ADDITIONAL))

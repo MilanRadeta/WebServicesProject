@@ -19,8 +19,11 @@ public class ArticleCategory implements Serializable {
 	private int id; //unique
 	@Column(unique=true, nullable=false)
 	private String code;
+	@Column(nullable=false)
 	private boolean consumerArticle;
+	@Column(nullable=false)
 	private String name;
+	@Column(nullable=false)
 	private double maxDiscount;
 
 	public int getId() {
