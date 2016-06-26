@@ -1,5 +1,5 @@
 (function(angular) {
-	var seller = angular.module("seller", ["authentication", "ngResource" ]);
+	var seller = angular.module("seller", ["authentication", "ngResource"]);
 	var sellerController = function($scope, AuthenticationService) {
 		$scope.currentUser = AuthenticationService.getCurrentUser();
 	};

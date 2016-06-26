@@ -5,7 +5,7 @@
     ukoliko je artikal iz stavke već kupovan u prethodnih 15dana."
      (declare
         (no-loop TRUE))
-    ?bill <- (bill (id ?billId &nil) (date ?billDate))
+    ?bill <- (bill (id ?billId &-1) (date ?billDate))
     ?differentBill <- (bill (id ?id &:(<> ?id ?billId)) (date ?date &:(< (getDateDifferenceInDays ?billDate ?date) 15)))
     ?item <- (item (bill ?bill.OBJECT))
     ?sameItem <- (item (bill ?differentBill.OBJECT) (article ?item.article))
@@ -19,7 +19,7 @@
     kupovani u prethodnih 30 dana."
      (declare
         (no-loop TRUE))
-    ?bill <- (bill (id ?billId &nil) (date ?billDate))
+    ?bill <- (bill (id ?billId &-1) (date ?billDate))
     ?differentBill <- (bill (id ?id &:(<> ?id ?billId)) (date ?date &:(< (getDateDifferenceInDays ?billDate ?date) 30)))
     ?item <- (item (bill ?bill.OBJECT))
     ?article <- (article (OBJECT ?item.article))
@@ -39,7 +39,7 @@
     Visina dodatnog popusta se preuzima iz akcijskog događaja."
      (declare
         (no-loop TRUE))
-    ?bill <- (bill (id ?billId &nil) (date ?billDate))
+    ?bill <- (bill (id ?billId &-1) (date ?billDate))
     ?item <- (item (bill ?bill.OBJECT))
     ?article <- (article (OBJECT ?item.article) (articleCategory ?category))
     ?saleEvent <- (saleEvent

@@ -1,3 +1,4 @@
+<button data-ng-show="billShown || cartShown" class="btn btn-primary" data-ng-click="showSearch()">Pretraga</button>
 <div data-ng-hide="cartShown || billShown">
 	<h3>Pretraga</h3>
 	<table class="table table-bordered form-group">
@@ -28,8 +29,7 @@
 		</tr>
 	</table>
 	<h3>Rezultati pretrage</h3>
-	<table class="table table-bordered form-group"
-		data-ng-hide="cartShown || billShown">
+	<table class="table table-bordered form-group">
 		<tr>
 			<th>ŠIFRA</th>
 			<th>NAZIV</th>
@@ -57,11 +57,9 @@
 		</tr>
 	</table>
 </div>
-<div data-ng-show="cartShown || billShown">
-	<h3 data-ng-show="cartShown">Korpa</h3>
-	<h3 data-ng-show="billShown">Račun</h3>
-	<table class="table table-bordered form-group"
-		data-ng-show="cartShown || billShown">
+<div data-ng-show="cartShown">
+	<h3>Korpa</h3>
+	<table class="table table-bordered form-group">
 		<tr>
 			<th>ŠIFRA</th>
 			<th>NAZIV</th>
@@ -79,7 +77,16 @@
 			<td data-ng-model="item.name"></td>
 			<td data-ng-model="item.articleCategory.name"></td>
 			<td data-ng-model="item.unitPrice"></td>
-			<td data-ng-model="saleEvents[item.articleCategory.name]"></td>
+			<td>
+				<table>
+					<tr data-ng-repeat="saleEvent in saleEvents[item.articleCategory.id]">
+						<td data-ng-model="saleEvent.name" />
+						<td data-ng-model="saleEvent.actionFrom" />
+						<td data-ng-model="saleEvent.actionTo" />
+						<td data-ng-model="saleEvent.discount" />
+					</tr>
+				</table>
+			</td>
 			<td data-ng-model="item.units"></td>
 			<td data-ng-model="item.originalTotalPrice"></td>
 			<td>
@@ -93,7 +100,7 @@
 			</td>
 			<td data-ng-model="item.discoutPercentage"></td>
 			<td data-ng-model="item.totalPrice"></td>
-			<td data-ng-show="cartShown"><button class="btn btn-primary"
+			<td><button class="btn btn-primary" data-ng-disabled="processing"
 					data-ng-click="removeFromCart(item)">Izbaci iz korpe</button></td>
 		</tr>
 		<tr>
@@ -116,10 +123,6 @@
 			<th>UKUPAN POPUST NA RAČUN</th>
 			<td data-ng-model="cart.discountPercentage"></td>
 		</tr>
-		<tr data-ng-show="billShown">
-			<th>POTROŠENI NAGRADNI POENI</th>
-			<td data-ng-model="cart.spentPoints"></td>
-		</tr>
 		<tr>
 			<th>UKUPNA CENA</th>
 			<td data-ng-model="cart.totalPrice"></td>
@@ -128,17 +131,96 @@
 			<th>NAGRADNI POENI</th>
 			<td data-ng-model="cart.receivedPoints"></td>
 		</tr>
-		<tr data-ng-show="cartShown">
+		<tr>
 			<th>PLAĆANJE NAGRADNIM POENIMA</th>
 			<td><input class="form-control" type="number" min="0"
 				max="buyer.points" data-ng-model="cart.spentPoints"></td>
 		</tr>
 		<tr>
 			<td colspan="5">
-				<button class="btn btn-primary" data-ng-disable="processing"
+				<button class="btn btn-primary" data-ng-disabled="processing"
 					data-ng-click="payBill()">Plati</button>
 			</td>
 		</tr>
 	</table>
 </div>
 
+
+<div data-ng-show="billShown">
+	<h3>Račun</h3>
+	<table class="table table-bordered form-group">
+		<tr>
+			<th>ŠIFRA</th>
+			<th>NAZIV</th>
+			<th>KATEGORIJA</th>
+			<th>JEDINIČNA CENA</th>
+			<th>AKCIJE</th>
+			<th>KOLIČINA</th>
+			<th>ORIGINALNA UKUPNA CENA</th>
+			<th>POPUSTI</th>
+			<th>UKUPAN POPUST</th>
+			<th>UKUPNA CENA</th>
+		</tr>
+		<tr data-ng-repeat="item in bill.items">
+			<td data-ng-model="item.code"></td>
+			<td data-ng-model="item.name"></td>
+			<td data-ng-model="item.articleCategory.name"></td>
+			<td data-ng-model="item.unitPrice"></td>
+			<td>
+				<table>
+					<tr data-ng-repeat="saleEvent in saleEvents[item.articleCategory.id]">
+						<td data-ng-model="saleEvent.name" />
+						<td data-ng-model="saleEvent.actionFrom" />
+						<td data-ng-model="saleEvent.actionTo" />
+						<td data-ng-model="saleEvent.discount" />
+					</tr>
+				</table>
+			</td>
+			<td data-ng-model="item.units"></td>
+			<td data-ng-model="item.originalTotalPrice"></td>
+			<td>
+				<table>
+					<tr data-ng-repeat="discount in item.discounts">
+						<td data-ng-model="discount.discountPercentage" />
+						<td data-ng-show="discount.type='BASE'">OSNOVNI</td>
+						<td data-ng-show="discount.type='ADDITIONAL'">DODATNI</td>
+					</tr>
+				</table>
+			</td>
+			<td data-ng-model="item.discoutPercentage"></td>
+			<td data-ng-model="item.totalPrice"></td>
+		</tr>
+		<tr>
+			<th>ORIGINALNA UKUPNA CENA</th>
+			<td data-ng-model="bill.originalTotalPrice"></td>
+		</tr>
+		<tr>
+			<th>POPUSTI NA RAČUN</th>
+			<td>
+				<table>
+					<tr data-ng-repeat="discount in bill.discounts">
+						<td data-ng-model="discount.discountPercentage" />
+						<td data-ng-show="discount.type='BASE'">OSNOVNI</td>
+						<td data-ng-show="discount.type='ADDITIONAL'">DODATNI</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th>UKUPAN POPUST NA RAČUN</th>
+			<td data-ng-model="bill.discountPercentage"></td>
+		</tr>
+		<tr>
+			<th>POTROŠENI NAGRADNI POENI</th>
+			<td data-ng-model="bill.spentPoints"></td>
+		</tr>
+		<tr>
+			<th>UKUPNA CENA</th>
+			<td data-ng-model="bill.totalPrice"></td>
+		</tr>
+		<tr>
+			<th>NAGRADNI POENI</th>
+			<td data-ng-model="bill.receivedPoints"></td>
+		</tr>
+	</table>
+</div>

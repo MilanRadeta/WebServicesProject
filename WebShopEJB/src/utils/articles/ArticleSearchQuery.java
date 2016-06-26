@@ -4,21 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.articles.ArticleCategory;
+import model.articles.ArticleStatus;
 
 public class ArticleSearchQuery {
 
-	private int id = -1;
+	private String code;
 	private String name;
 	private List<ArticleCategory> categories = new ArrayList<ArticleCategory>();
 	private double priceMin = -1;
 	private double priceMax = -1;
+	private ArticleStatus status = ArticleStatus.ACTIVE;
 
-	public int getId() {
-		return id;
+	public String getCode() {
+		return code;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getName() {
@@ -53,4 +55,14 @@ public class ArticleSearchQuery {
 		this.priceMax = priceMax;
 	}
 
+	public ArticleStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ArticleStatus status) {
+		this.status = status;
+	}
+
+	
+	
 }

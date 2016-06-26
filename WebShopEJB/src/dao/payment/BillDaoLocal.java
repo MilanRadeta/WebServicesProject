@@ -7,4 +7,5 @@ import dao.GenericDaoLocal;
 
 public interface BillDaoLocal extends GenericDaoLocal<Bill, Integer> {
 	public List<Bill> findOrderedBills();
+	public Bill persistBillWithReferences(Bill bill);
 }

@@ -62,10 +62,10 @@
 						state : "seller"
 					}, {
 						name : "Artikli",
-						state : "articles"
+						state : "seller.articles"
 					}, {
 						name : "Računi",
-						state : "bills"
+						state : "seller.bills"
 					}, {
 						name : "Logout",
 						onClick : $rootScope.logout

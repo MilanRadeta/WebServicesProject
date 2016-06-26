@@ -28,8 +28,6 @@ public class UserBean implements UserBeanRemote {
 	private UserDaoLocal userDao;
 	
 	private static RsaJsonWebKey senderJwk = null;
-
-	// TODO: call it in other beans and check user's role
 	
 	@Override
 	public Response login(String token, User user) {

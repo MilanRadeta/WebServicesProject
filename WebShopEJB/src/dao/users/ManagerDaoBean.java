@@ -8,6 +8,6 @@ import dao.GenericDaoBean;
 
 @Stateless
 @Local(ManagerDaoLocal.class)
-public class ManagerDaoBean extends GenericDaoBean<Manager, String> implements ManagerDaoLocal {
+public class ManagerDaoBean extends GenericDaoBean<Manager, Integer> implements ManagerDaoLocal {
 	
 }

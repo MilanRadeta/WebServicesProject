@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import model.articles.Article;
 import model.payment.discounts.ItemDiscount;
 
@@ -25,6 +27,7 @@ public class Item implements Serializable {
 	private int id;
 
 	@ManyToOne(fetch=FetchType.EAGER)
+	@JsonIgnore
 	private Bill bill;
 	@Column(nullable=false)
 	private int itemNumber; // unique in bill

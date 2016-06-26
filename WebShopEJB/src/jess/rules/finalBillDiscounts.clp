@@ -5,7 +5,6 @@
     (declare
         (no-loop TRUE))
     ?bill <- (bill)
-    ?item <- (item (bill ?bill.OBJECT))
     ?totalDiscount <- (accumulate
         (and (bind ?totalDiscount 0) (bind ?counter 0)) ;; initializer
         (and (bind ?totalDiscount (+ ?totalDiscount ?discount)) (bind ?counter (+ ?counter 1)));; action

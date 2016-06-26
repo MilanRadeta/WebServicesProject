@@ -1,5 +1,5 @@
 (function(angular) {
-	var app = angular.module("app", ["ui.bootstrap", "navbar", "login", "manager", "buyer", "ui.router", "authentication"]);
+	var app = angular.module("app", ["ui.bootstrap", "navbar", "login", "manager", "buyer", "seller", "ui.router", "authentication"]);
 	app.config(function config($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise("/login");
 		$stateProvider.state("login", {

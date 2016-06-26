@@ -8,6 +8,6 @@ import dao.GenericDaoBean;
 
 @Stateless
 @Local(BuyerDaoLocal.class)
-public class BuyerDaoBean extends GenericDaoBean<Buyer, String> implements BuyerDaoLocal {
+public class BuyerDaoBean extends GenericDaoBean<Buyer, Integer> implements BuyerDaoLocal {
 	
 }

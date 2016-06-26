@@ -24,6 +24,8 @@ public class Article implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; // unique
+	@Column(nullable=false, unique=true)
+	private String code;
 	@Column(nullable=false)
 	private String name;
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -49,6 +51,14 @@ public class Article implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getName() {
@@ -114,5 +124,16 @@ public class Article implements Serializable {
 	public void setMinInStock(double minInStock) {
 		this.minInStock = minInStock;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Article) {
+			Article other = (Article) obj;
+			return other.getId() == id;
+		}
+		return false;
+	}
+	
+	
 
 }

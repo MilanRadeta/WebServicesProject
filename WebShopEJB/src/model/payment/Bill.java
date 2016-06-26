@@ -25,7 +25,7 @@ import model.users.Buyer;
 
 @Entity
 @Table
-@NamedQuery(name="findOrderedBills", query="SELECT b FROM Bill b WHERE b.state = \"ORDERED\"")
+@NamedQuery(name="findOrderedBills", query="SELECT b FROM Bill b WHERE b.state = 'ORDERED'")
 public class Bill implements Serializable {
 	private static final long serialVersionUID = -5381510478428079568L;
 	
