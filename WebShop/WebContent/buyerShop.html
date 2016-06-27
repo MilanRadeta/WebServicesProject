@@ -97,11 +97,13 @@
 				</table>
 			</td>
 			<td>{{item.discountPercentage}}%</td>
-			<td data-ng-bind="item.totalPrice"></td>
+			<td>{{item.totalPrice | number:2}}</td>
 			<td><button class="btn btn-primary"
 					data-ng-disabled="processing" data-ng-click="removeFromCart(item)">Izbaci
 					iz korpe</button></td>
 		</tr>
+	</table>
+	<table class="table table-bordered form-group">
 		<tr>
 			<th>ORIGINALNA UKUPNA CENA</th>
 			<td>{{cart.originalTotalPrice | number:2}}</td>
@@ -120,7 +122,7 @@
 		</tr>
 		<tr>
 			<th>UKUPAN POPUST NA RAČUN</th>
-			<td data-ng-bind="cart.discountPercentage"></td>
+			<td>{{bill.discountPercentage | number:2}}</td>
 		</tr>
 		<tr>
 			<th>UKUPNA CENA</th>
@@ -133,7 +135,7 @@
 		<tr>
 			<th>PLAĆANJE NAGRADNIM POENIMA</th>
 			<td><input class="form-control" type="number" min="0"
-				max="buyer.points" data-ng-model="cart.spentPoints"></td>
+				max="cart.buyer.points" data-ng-model="cart.spentPoints"></td>
 		</tr>
 		<tr>
 			<td colspan="5">
@@ -188,9 +190,11 @@
 					</tr>
 				</table>
 			</td>
-			<td data-ng-bind="item.discoutPercentage"></td>
+			<td data-ng-bind="item.discountPercentage"></td>
 			<td>{{item.totalPrice | number:2}}</td>
 		</tr>
+	</table>
+	<table class="table table-bordered form-group">
 		<tr>
 			<th>ORIGINALNA UKUPNA CENA</th>
 			<td>{{bill.originalTotalPrice | number:2}}</td>
@@ -209,7 +213,7 @@
 		</tr>
 		<tr>
 			<th>UKUPAN POPUST NA RAČUN</th>
-			<td data-ng-bind="bill.discountPercentage"></td>
+			<td>{{bill.discountPercentage | number:2}}</td>
 		</tr>
 		<tr>
 			<th>POTROŠENI NAGRADNI POENI</th>

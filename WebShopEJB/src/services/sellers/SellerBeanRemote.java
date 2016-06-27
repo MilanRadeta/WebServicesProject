@@ -43,6 +43,6 @@ public interface SellerBeanRemote {
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/bills")
-	public void cancelBill(Bill bill);
+	public void cancelBill(@QueryParam("id") int id);
 	
 }

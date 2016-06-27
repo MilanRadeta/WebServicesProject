@@ -1,4 +1,23 @@
 <h3>Računi</h3>
+<table data-ng-show="missingItems.length > 0" class="table table-bordered form-group">
+	<thead>
+		<tr>
+			<th colspan="3">NEDOSTAJU U ZALIHAMA</th>
+		<tr>
+		<tr>
+			<th>NAZIV ARTIKLA</th>
+			<th>POTREBNO</th>
+			<th>U ZALIHAMA</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr data-ng-repeat="item in missingItems">
+			<td>{{item.article.name}}</td>
+			<td>{{item.units}}</td>
+			<td>{{item.article.inStock | number:2}}</td>
+		</tr>
+	</tbody>
+</table>
 <table class="table table-bordered form-group">
 	<thead>
 		<tr>
@@ -16,11 +35,11 @@
 	<tbody>
 		<tr data-ng-repeat="bill in orderedBills">
 			<td data-ng-bind="bill.id"></td>
-			<td data-ng-bind="bill.date"></td>
+			<td>{{bill.date | date:'dd.MM.yyyy. HH:mm:ss'}}</td>
 			<td>{{bill.buyer.firstName}} {{bill.buyer.lastName}} ({{bill.buyer.username}})</td>
-			<td data-ng-bind="bill.originalTotalPrice"></td>
-			<td data-ng-bind="bill.totalPrice"></td>
-			<td data-ng-bind="bill.discountPercentage"></td>
+			<td>{{bill.originalTotalPrice | number:2}}</td>
+			<td>{{bill.totalPrice | number:2}}</td>
+			<td>{{bill.discountPercentage}}%</td>
 			<td><button class="btn btn-primary" data-ng-disabled="processing" data-ng-click="process(bill)">Obradi</button></td>
 			<td><button class="btn btn-primary" data-ng-disabled="processing" data-ng-click="cancel(bill)">Otkaži</button></td>
 		</tr>

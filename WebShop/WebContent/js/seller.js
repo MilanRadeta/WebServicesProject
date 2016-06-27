@@ -24,7 +24,8 @@
 		var Bills = $resource('webshop/sellers/bills',
 				null, {
 					update : {
-						method : "PUT"
+						method : "PUT",
+						isArray: true
 					}
 				});
 		var loadEntries = function() {
@@ -32,10 +33,15 @@
 		};
 		loadEntries();
 		$scope.process = function(bill) {
-			bill.$update(loadEntries);
+			Bills.update(null, bill, function(data) {
+				$scope.missingItems = data;
+				console.log(data);
+				loadEntries();
+			});
 		};
 		$scope.cancel = function(bill) {
-			bill.$delete(loadEntries);
+			$scope.missingItems = [];
+			Bills.remove({id: bill.id}, null, loadEntries);
 		};
 	};
 	seller.controller('sellerBillsController', sellerBillsController);

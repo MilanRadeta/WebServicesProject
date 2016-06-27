@@ -29,6 +29,7 @@ import model.payment.discounts.SaleEvent;
 import model.users.Buyer;
 import model.users.Role;
 import model.users.User;
+import model.users.buyers.PaymentPointsBonus;
 import services.users.UserBean;
 import utils.articles.ArticleSearchQuery;
 import dao.articles.ArticleCategoryDaoLocal;
@@ -62,7 +63,7 @@ public class BuyerBean implements BuyerBeanRemote {
 
 	@EJB
 	private BillDaoLocal billDao;
-	
+
 	@EJB
 	private ArticleCategoryDaoLocal articleCategoryDao;
 
@@ -164,27 +165,29 @@ public class BuyerBean implements BuyerBeanRemote {
 				.getFirst("Authorization"));
 		if (user != null && user.getRole() == Role.BUYER) {
 			Buyer buyer = buyerDao.findById(user.getId());
-			List<Article> articles = new ArrayList<>();
-			int itemNumber = 0;
-			for (Item item : bill.getItems()) {
-				Article article = item.getArticle();
-				article = articleDao.findById(article.getId());
-				articles.add(article);
-				item.setArticle(article);
-				item.setBill(bill);
-				item.setItemNumber(++itemNumber);
-				item.setUnitPrice(article.getPrice());
+			if (buyer.getPoints() >= bill.getSpentPoints()) {
+				List<Article> articles = new ArrayList<>();
+				int itemNumber = 0;
+				for (Item item : bill.getItems()) {
+					Article article = item.getArticle();
+					article = articleDao.findById(article.getId());
+					articles.add(article);
+					item.setArticle(article);
+					item.setBill(bill);
+					item.setItemNumber(++itemNumber);
+					item.setUnitPrice(article.getPrice());
+				}
+				bill.setState(BillState.ORDERED);
+				bill.setDate(new Date());
+				bill.setBuyer(buyer);
+				bill.setTotalPrice(0);
+				bill.setOriginalTotalPrice(0);
+				bill = formBill(bill);
+				buyer.getPaymentHistory().add(bill);
+				buyer.setPoints(buyer.getPoints() + bill.getReceivedPoints() - bill.getSpentPoints());
+				billDao.persistBillWithReferences(bill);
+				return bill;
 			}
-			bill.setState(BillState.ORDERED);
-			bill.setDate(new Date());
-			bill.setBuyer(buyer);
-			bill.setTotalPrice(0);
-			bill.setOriginalTotalPrice(0);
-			bill = formBill(bill);
-			buyer.getPaymentHistory().add(bill);
-
-			billDao.persistBillWithReferences(bill);
-			return bill;
 		}
 		return null;
 	}
@@ -207,6 +210,7 @@ public class BuyerBean implements BuyerBeanRemote {
 			item.setOriginalTotalPrice(item.getUnits() * item.getUnitPrice());
 			item.setTotalPrice(item.getOriginalTotalPrice());
 		}
+		bill.getDiscounts().clear();
 		try {
 			Rete engine = new Rete();
 			engine.reset();
@@ -296,6 +300,10 @@ public class BuyerBean implements BuyerBeanRemote {
 			engine.batch("jess/rules/points.clp");
 			engine.definstance("buyerCategory", bill.getBuyer().getCategory(),
 					false);
+			for (PaymentPointsBonus bonus : bill.getBuyer().getCategory()
+					.getPaymentPointsBonuses()) {
+				engine.definstance("paymentPointsBonus", bonus, false);
+			}
 			engine.definstance("buyer", bill.getBuyer(), false);
 			engine.definstance("bill", bill, false);
 

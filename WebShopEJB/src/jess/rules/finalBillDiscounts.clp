@@ -32,6 +32,6 @@
     =>
     (retract ?billWithDiscount)
 	(modify ?bill (discountPercentage ?discount))
-    (modify ?bill (totalPrice (- ?bill.originalTotalPrice (* ?bill.originalPrice (/ ?discount 100)) ?bill.spentPoints)))
+    (modify ?bill (totalPrice (- ?bill.originalTotalPrice (* ?bill.originalTotalPrice (/ ?discount 100)) ?bill.spentPoints)))
     )
 

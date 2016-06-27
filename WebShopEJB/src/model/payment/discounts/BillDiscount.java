@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import model.payment.Bill;
 
 @Entity
@@ -22,6 +24,7 @@ public class BillDiscount implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; // unique
 	@ManyToOne(fetch=FetchType.EAGER)
+	@JsonIgnore
 	private Bill bill;
 	@Column(nullable = false)
 	private double discountPercentage;

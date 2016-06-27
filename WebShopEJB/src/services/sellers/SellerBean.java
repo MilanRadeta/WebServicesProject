@@ -2,7 +2,9 @@ package services.sellers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -125,7 +127,11 @@ public class SellerBean implements SellerBeanRemote {
 		if (user != null && user.getRole() == Role.SELLER) {
 			Bill dbBill = billDao.findById(bill.getId());
 			List<Article> articles = new ArrayList<>();
-			for (Item item : dbBill.getItems()) {
+			List<Item> allItems = dbBill.getItems();
+			Set<Item> dedupeItems = new LinkedHashSet<>(allItems);
+			allItems.clear();
+			allItems.addAll(dedupeItems);
+			for (Item item : allItems) {
 				double units = item.getUnits();
 				Article article = item.getArticle();
 				double inStock = article.getInStock();
@@ -140,6 +146,7 @@ public class SellerBean implements SellerBeanRemote {
 				for (Article article : articles) {
 					articleDao.merge(article);
 				}
+				dbBill.setState(BillState.SUCCESSFULLY_REALIZED);
 				billDao.merge(dbBill);
 			}
 		}
@@ -147,11 +154,11 @@ public class SellerBean implements SellerBeanRemote {
 	}
 
 	@Override
-	public void cancelBill(Bill bill) {
+	public void cancelBill(int id) {
 		User user = userBean.validateJWTToken(httpHeaders.getRequestHeaders()
 				.getFirst("Authorization"));
 		if (user != null && user.getRole() == Role.SELLER) {
-			Bill dbBill = billDao.findById(bill.getId());
+			Bill dbBill = billDao.findById(id);
 			dbBill.setState(BillState.CANCELED);
 			billDao.merge(dbBill);
 		}

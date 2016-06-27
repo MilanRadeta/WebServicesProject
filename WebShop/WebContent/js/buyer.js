@@ -106,10 +106,12 @@
 		};
 		
 		$scope.payBill = function() {
-			$scope.bill = Cart.save(null, $scope.cart);
-			$scope.cart = Cart.get();
-			$scope.cartShown = false;
-			$scope.billShown = true;
+			if ($scope.cart.buyer.points >= $scope.cart.spentPoints) {
+				$scope.bill = Cart.save(null, $scope.cart);
+				$scope.cart = Cart.get();
+				$scope.cartShown = false;
+				$scope.billShown = true;
+			}
 		};
 		
 		$scope.showSearch = function() {
