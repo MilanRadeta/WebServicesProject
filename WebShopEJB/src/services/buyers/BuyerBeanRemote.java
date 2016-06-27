@@ -60,8 +60,8 @@ public interface BuyerBeanRemote {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Path("/bill")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/cart")
 	public Bill payBill(Bill bill);
 
 }

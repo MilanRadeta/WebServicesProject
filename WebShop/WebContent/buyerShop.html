@@ -1,4 +1,7 @@
-<button data-ng-show="billShown || cartShown" class="btn btn-primary" data-ng-click="showSearch()">Pretraga</button>
+<button data-ng-show="billShown || cartShown" class="btn btn-primary"
+	data-ng-click="showSearch()">Pretraga</button>
+<button data-ng-hide="billShown || cartShown" class="btn btn-primary"
+	data-ng-click="showCart()">Prikaži korpu</button>
 <div data-ng-hide="cartShown || billShown">
 	<h3>Pretraga</h3>
 	<table class="table table-bordered form-group">
@@ -42,18 +45,12 @@
 			<td data-ng-bind="result.code"></td>
 			<td data-ng-bind="result.name"></td>
 			<td data-ng-bind="result.articleCategory.name"></td>
-			<td data-ng-bind="result.price"></td>
+			<td>{{result.price | number:2}}</td>
 			<td data-ng-bind="saleEvents[result.articleCategory.name]"></td>
 			<td><input class="form-control" type="number" min="1"
 				data-ng-model="result.units"></td>
 			<td><button class="btn btn-primary"
 					data-ng-click="addToCart(result)">Dodaj u korpu</button></td>
-		</tr>
-		<tr>
-			<td colspan="5">
-				<button class="btn btn-primary" data-ng-click="showCart()">Prikaži
-					korpu</button>
-			</td>
 		</tr>
 	</table>
 </div>
@@ -76,10 +73,11 @@
 			<td data-ng-bind="item.article.code"></td>
 			<td data-ng-bind="item.article.name"></td>
 			<td data-ng-bind="item.article.articleCategory.name"></td>
-			<td data-ng-bind="item.unitPrice"></td>
+			<td>{{item.unitPrice | number:2}}</td>
 			<td>
 				<table>
-					<tr data-ng-repeat="saleEvent in saleEvents[item.article.articleCategory.id]">
+					<tr
+						data-ng-repeat="saleEvent in saleEvents[item.article.articleCategory.id]">
 						<td data-ng-bind="saleEvent.name" />
 						<td data-ng-bind="saleEvent.actionFrom" />
 						<td data-ng-bind="saleEvent.actionTo" />
@@ -88,33 +86,34 @@
 				</table>
 			</td>
 			<td data-ng-bind="item.units"></td>
-			<td data-ng-bind="item.originalTotalPrice"></td>
+			<td>{{item.originalTotalPrice | number:2}}</td>
 			<td>
 				<table>
 					<tr data-ng-repeat="discount in item.discounts">
-						<td data-ng-bind="discount.discountPercentage" />
-						<td data-ng-show="discount.type='BASE'">OSNOVNI</td>
-						<td data-ng-show="discount.type='ADDITIONAL'">DODATNI</td>
+						<td>{{discount.discountPercentage}}%</td>
+						<td data-ng-show="discount.type == 'BASE'">OSNOVNI</td>
+						<td data-ng-show="discount.type == 'ADDITIONAL'">DODATNI</td>
 					</tr>
 				</table>
 			</td>
-			<td data-ng-bind="item.discoutPercentage"></td>
+			<td>{{item.discountPercentage}}%</td>
 			<td data-ng-bind="item.totalPrice"></td>
-			<td><button class="btn btn-primary" data-ng-disabled="processing"
-					data-ng-click="removeFromCart(item)">Izbaci iz korpe</button></td>
+			<td><button class="btn btn-primary"
+					data-ng-disabled="processing" data-ng-click="removeFromCart(item)">Izbaci
+					iz korpe</button></td>
 		</tr>
 		<tr>
 			<th>ORIGINALNA UKUPNA CENA</th>
-			<td data-ng-bind="cart.originalTotalPrice"></td>
+			<td>{{cart.originalTotalPrice | number:2}}</td>
 		</tr>
 		<tr>
 			<th>POPUSTI NA RAČUN</th>
 			<td>
-				<table>
+				<table class="table">
 					<tr data-ng-repeat="discount in cart.discounts">
-						<td data-ng-bind="discount.discountPercentage" />
-						<td data-ng-show="discount.type='BASE'">OSNOVNI</td>
-						<td data-ng-show="discount.type='ADDITIONAL'">DODATNI</td>
+						<td>{{discount.discountPercentage}}%</td>
+						<td data-ng-show="discount.type == 'BASE'">OSNOVNI</td>
+						<td data-ng-show="discount.type == 'ADDITIONAL'">DODATNI</td>
 					</tr>
 				</table>
 			</td>
@@ -125,7 +124,7 @@
 		</tr>
 		<tr>
 			<th>UKUPNA CENA</th>
-			<td data-ng-bind="cart.totalPrice"></td>
+			<td>{{cart.totalPrice | number:2}}</td>
 		</tr>
 		<tr>
 			<th>NAGRADNI POENI</th>
@@ -138,7 +137,8 @@
 		</tr>
 		<tr>
 			<td colspan="5">
-				<button class="btn btn-primary" data-ng-disabled="processing"
+				<button class="btn btn-primary"
+					data-ng-disabled="processing || cart.items.length == 0"
 					data-ng-click="payBill()">Plati</button>
 			</td>
 		</tr>
@@ -165,10 +165,11 @@
 			<td data-ng-bind="item.code"></td>
 			<td data-ng-bind="item.name"></td>
 			<td data-ng-bind="item.articleCategory.name"></td>
-			<td data-ng-bind="item.unitPrice"></td>
+			<td>{{item.unitPrice | number:2}}</td>
 			<td>
 				<table>
-					<tr data-ng-repeat="saleEvent in saleEvents[item.articleCategory.id]">
+					<tr
+						data-ng-repeat="saleEvent in saleEvents[item.articleCategory.id]">
 						<td data-ng-bind="saleEvent.name" />
 						<td data-ng-bind="saleEvent.actionFrom" />
 						<td data-ng-bind="saleEvent.actionTo" />
@@ -177,31 +178,31 @@
 				</table>
 			</td>
 			<td data-ng-bind="item.units"></td>
-			<td data-ng-bind="item.originalTotalPrice"></td>
+			<td>{{item.originalTotalPrice | number:2}}</td>
 			<td>
 				<table>
 					<tr data-ng-repeat="discount in item.discounts">
-						<td data-ng-bind="discount.discountPercentage" />
-						<td data-ng-show="discount.type='BASE'">OSNOVNI</td>
-						<td data-ng-show="discount.type='ADDITIONAL'">DODATNI</td>
+						<td>{{discount.discountPercentage}}%</td>
+						<td data-ng-show="discount.type == 'BASE'">OSNOVNI</td>
+						<td data-ng-show="discount.type == 'ADDITIONAL'">DODATNI</td>
 					</tr>
 				</table>
 			</td>
 			<td data-ng-bind="item.discoutPercentage"></td>
-			<td data-ng-bind="item.totalPrice"></td>
+			<td>{{item.totalPrice | number:2}}</td>
 		</tr>
 		<tr>
 			<th>ORIGINALNA UKUPNA CENA</th>
-			<td data-ng-bind="bill.originalTotalPrice"></td>
+			<td>{{bill.originalTotalPrice | number:2}}</td>
 		</tr>
 		<tr>
 			<th>POPUSTI NA RAČUN</th>
 			<td>
 				<table>
 					<tr data-ng-repeat="discount in bill.discounts">
-						<td data-ng-bind="discount.discountPercentage" />
-						<td data-ng-show="discount.type='BASE'">OSNOVNI</td>
-						<td data-ng-show="discount.type='ADDITIONAL'">DODATNI</td>
+						<td>{{discount.discountPercentage}}%</td>
+						<td data-ng-show="discount.type == 'BASE'">OSNOVNI</td>
+						<td data-ng-show="discount.type == 'ADDITIONAL'">DODATNI</td>
 					</tr>
 				</table>
 			</td>
@@ -216,7 +217,7 @@
 		</tr>
 		<tr>
 			<th>UKUPNA CENA</th>
-			<td data-ng-bind="bill.totalPrice"></td>
+			<td>{{bill.totalPrice | number:2}}</td>
 		</tr>
 		<tr>
 			<th>NAGRADNI POENI</th>

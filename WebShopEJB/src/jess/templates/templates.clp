@@ -96,6 +96,7 @@
         )
     (slot item)
     (slot discount)
+    (slot mark)
     )
 
 (deftemplate billWithDiscount

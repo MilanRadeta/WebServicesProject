@@ -152,7 +152,8 @@ public class BuyerBean implements BuyerBeanRemote {
 			bill.setBuyer(buyer);
 			bill.setTotalPrice(0);
 			bill.setOriginalTotalPrice(0);
-			return formBill(bill);
+			bill = formBill(bill);
+			return bill;
 		}
 		return null;
 	}
@@ -229,8 +230,8 @@ public class BuyerBean implements BuyerBeanRemote {
 				engine.definstance("item", item, false);
 			}
 			engine.definstance("bill", bill, false);
-
-			for (Bill oldBill : bill.getBuyer().getPaymentHistory()) {
+			List<Bill> paymentHistory = billDao.findByBuyer(bill.getBuyer());
+			for (Bill oldBill : paymentHistory) {
 				for (Item item : oldBill.getItems()) {
 					engine.definstance("article", item.getArticle(), false);
 					engine.definstance("item", item, false);

@@ -13,7 +13,7 @@
         (units ?units &:(> ?units 20)))
     (not (itemDiscount (bill ?bill.OBJECT) (item ?item.OBJECT) (type ?type &=(get-member DiscountType BASE))))
     =>
-    (createItemDiscount ?bill ?item 1 (get-member DiscountType BASE))
+    (createItemDiscount ?bill ?item 10 (get-member DiscountType BASE))
     )
 
 (defrule base-item-discount-2

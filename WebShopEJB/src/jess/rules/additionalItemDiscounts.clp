@@ -5,12 +5,14 @@
     ukoliko je artikal iz stavke već kupovan u prethodnih 15dana."
      (declare
         (no-loop TRUE))
-    ?bill <- (bill (id ?billId &-1) (date ?billDate))
+    ?bill <- (bill (id ?billId &0) (date ?billDate))
     ?differentBill <- (bill (id ?id &:(<> ?id ?billId)) (date ?date &:(< (getDateDifferenceInDays ?billDate ?date) 15)))
     ?item <- (item (bill ?bill.OBJECT))
     ?sameItem <- (item (bill ?differentBill.OBJECT) (article ?item.article))
+    (not (itemWithDiscount (item ?item) (mark 1)))
     =>
     (createItemDiscount ?bill ?item 2 (get-member DiscountType ADDITIONAL))
+    (assert (itemWithDiscount (item ?item) (mark 1)))
     )
 
 (defrule additional-item-discount-2
@@ -19,14 +21,16 @@
     kupovani u prethodnih 30 dana."
      (declare
         (no-loop TRUE))
-    ?bill <- (bill (id ?billId &-1) (date ?billDate))
+    ?bill <- (bill (id ?billId &0) (date ?billDate))
     ?differentBill <- (bill (id ?id &:(<> ?id ?billId)) (date ?date &:(< (getDateDifferenceInDays ?billDate ?date) 30)))
     ?item <- (item (bill ?bill.OBJECT))
     ?article <- (article (OBJECT ?item.article))
     ?otherItem <- (item (bill ?differentBill.OBJECT))
     ?otherArticle <- (article (OBJECT ?otherItem.article) (articleCategory ?category &?article.articleCategory))
+    (not (itemWithDiscount (item ?item) (mark 2)))
     =>
     (createItemDiscount ?bill ?item 1 (get-member DiscountType ADDITIONAL))
+    (assert (itemWithDiscount (item ?item) (mark 2)))
     )
 
 (defrule additional-item-discount-3
@@ -39,7 +43,7 @@
     Visina dodatnog popusta se preuzima iz akcijskog događaja."
      (declare
         (no-loop TRUE))
-    ?bill <- (bill (id ?billId &-1) (date ?billDate))
+    ?bill <- (bill (id ?billId) (date ?billDate))
     ?item <- (item (bill ?bill.OBJECT))
     ?article <- (article (OBJECT ?item.article) (articleCategory ?category))
     ?saleEvent <- (saleEvent

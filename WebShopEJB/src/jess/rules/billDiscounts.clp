@@ -15,7 +15,7 @@
             )
         )
     =>
-    (modify ?bill (originalTotalPrice ?originalTotalPrice))
+    (modify ?bill (originalTotalPrice ?originalTotalPrice) (totalPrice ?originalTotalPrice))
     )
 
 (defrule bill-discount-1

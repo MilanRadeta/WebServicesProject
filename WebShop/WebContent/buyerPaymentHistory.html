@@ -17,33 +17,21 @@
 	</thead>
 	<tbody>
 		<tr data-ng-repeat="bill in paymentHistory">
-			<td data-ng-bind="bill.date" />
-			<td data-ng-bind="bill.state" />
-			<td data-ng-bind="bill.originalTotalPrice" />
-			<td data-ng-bind="bill.totalPrice" />
-			<td data-ng-bind="bill.discountPercentage" />
+			<td>{{bill.date | date:'dd.MM.yyyy. HH:mm:ss'}}</td>
+			<td data-ng-show="bill.state == 'ORDERED'">PORUČENO</td>
+			<td data-ng-show="bill.state == 'CANCELED'">OTKAZANO</td>
+			<td data-ng-show="bill.state == 'SUCCESSFULLY_REALIZED'">USPEŠNO
+				REALIZOVANO</td>
+			<td>{{bill.originalTotalPrice | number:2}}</td>
+			<td>{{bill.totalPrice | number:2}}</td>
+			<td>{{bill.discountPercentage}}%</td>
 			<td data-ng-bind="bill.spentPoints" />
 			<td data-ng-bind="bill.receivedPoints" />
-			<td>
-				<table>
-					<tr>
-						<th>NAZIV</th>
-						<th>KOLIČINA</th>
-						<th>JEDINIČNA CENA</th>
-						<th>ORIGINALNA UKUPNA CENA</th>
-						<th>UKUPNA CENA</th>
-						<th>POPUST</th>
-					</tr>
-					<tr data-ng-repeat="item in bill.items | orderBy: 'item.itemNumber'">
-						<td data-ng-bind="item.article.name"/>
-						<td data-ng-bind="item.units"/>
-						<td data-ng-bind="item.unitPrice"/>
-						<td data-ng-bind="item.originalTotalPrice"/>
-						<td data-ng-bind="item.totalPrice"/>
-						<td data-ng-bind="item.discountPercentage"/>
-					</tr>
-				</table>
-			</td>
+			<td><span
+				data-ng-repeat="item in bill.items | orderBy: 'item.itemNumber'">
+					{{item.article.name}} {{item.unitPrice | number:2}} x{{item.units}}
+					{{item.discountPercentage}}% {{item.totalPrice | number:2}} <br />
+			</span></td>
 		</tr>
 	</tbody>
 </table>

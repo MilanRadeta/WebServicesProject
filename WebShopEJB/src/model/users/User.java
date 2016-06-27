@@ -23,6 +23,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import model.payment.Bill;
 import model.users.buyers.BuyerCategory;
 
@@ -58,6 +60,7 @@ public class User implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private BuyerCategory category;
 	@OneToMany(fetch = FetchType.EAGER)
+	@JsonIgnore
 	private List<Bill> paymentHistory;
 
 	public int getId() {

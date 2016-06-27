@@ -11,6 +11,7 @@ import model.payment.Bill;
 import model.payment.Item;
 import model.payment.discounts.BillDiscount;
 import model.payment.discounts.ItemDiscount;
+import model.users.Buyer;
 import dao.GenericDaoBean;
 import dao.payment.discounts.BillDiscountDaoLocal;
 import dao.payment.discounts.ItemDiscountDaoLocal;
@@ -61,6 +62,17 @@ public class BillDaoBean extends GenericDaoBean<Bill, Integer> implements BillDa
 		buyerDao.merge(bill.getBuyer());
 		return bill;
 	}
+
+	@Override
+	public List<Bill> findByBuyer(Buyer buyer) {
+		Query query = em.createNamedQuery("findByBuyer");
+		query.setParameter("id", buyer.getId());
+		@SuppressWarnings("unchecked")
+		List<Bill> bills = query.getResultList();
+		return bills;
+	}
+	
+	
 	
 	
 	

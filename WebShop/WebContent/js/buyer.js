@@ -31,7 +31,12 @@
 				});
 		var SaleEvents = $resource('webshop/buyers/saleEvents');
 		$scope.search = function() {
-			$scope.searchResults = Article.search(null, $scope.searchQuery);
+			$scope.searchResults = Article.search(null, $scope.searchQuery, function(data) {
+				$scope.searchResults = data;
+				for (var index in data) {
+					data[index].units = 1;
+				}
+			});
 			$scope.saleEvents = {};
 			SaleEvents.query(function(data) {
 					var saleEvents = data;
@@ -67,28 +72,28 @@
 		};
 		getCart();
 		$scope.addToCart = function(article) {
-			for (var index in $scope.cart.items) {
-				var item = $scope.cart.items[index];
-				console.log(item);
-				console.log(article);
-				if (item.article.id == article.id) {
-					item.units += article.units;
-					item.unitPrice = article.price;
-					item.article = article;
-					$scope.cart.$update();
-					return;
-				}
-			}
-			$scope.cart.items.push(
-					{
-						article: article,
-						unitPrice: article.price,
-						units: article.units,
-						
+			if (article.units > 0) {
+				for ( var index in $scope.cart.items) {
+					var item = $scope.cart.items[index];
+					console.log(item);
+					console.log(article);
+					if (item.article.id == article.id) {
+						item.units += article.units;
+						item.unitPrice = article.price;
+						item.article = article;
+						$scope.cart.$update();
+						return;
 					}
-			);
-			console.log($scope.cart);
-			$scope.cart.$update();
+				}
+				$scope.cart.items.push({
+					article : article,
+					unitPrice : article.price,
+					units : article.units,
+
+				});
+				console.log($scope.cart);
+				$scope.cart.$update();
+			}
 		};
 		
 		$scope.showCart = function() {
@@ -96,12 +101,12 @@
 		};
 		
 		$scope.removeFromCart = function(item) {
-			$scope.cart.splice($scope.cart.indexOf(item), 1);
+			$scope.cart.items.splice($scope.cart.items.indexOf(item), 1);
 			$scope.cart.$update();
 		};
 		
 		$scope.payBill = function() {
-			$scope.bill = Cart.update(null, $scope.cart);
+			$scope.bill = Cart.save(null, $scope.cart);
 			$scope.cart = Cart.get();
 			$scope.cartShown = false;
 			$scope.billShown = true;
