@@ -28,3 +28,4 @@ public class UserDaoBean extends GenericDaoBean<User, Integer> implements UserDa
 	
 	
 }
+	

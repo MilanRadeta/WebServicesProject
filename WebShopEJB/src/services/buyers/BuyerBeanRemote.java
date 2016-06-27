@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import model.articles.Article;
+import model.articles.ArticleCategory;
 import model.payment.Bill;
 import model.payment.discounts.SaleEvent;
 import utils.articles.ArticleSearchQuery;
@@ -30,13 +31,18 @@ public interface BuyerBeanRemote {
 	@Path("/paymentHistory")
 	public List<Bill> getPaymentHistory();
 
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/articles")
+	public List<ArticleCategory> getArticleCategories();
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/search")
+	@Path("/articles")
 	public List<Article> searchArticle(ArticleSearchQuery query);
 
-	@POST
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/saleEvents")
 	public List<SaleEvent> getSaleEvents();

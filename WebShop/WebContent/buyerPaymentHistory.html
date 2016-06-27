@@ -17,13 +17,13 @@
 	</thead>
 	<tbody>
 		<tr data-ng-repeat="bill in paymentHistory">
-			<td data-ng-model="bill.date" />
-			<td data-ng-model="bill.state" />
-			<td data-ng-model="bill.originalTotalPrice" />
-			<td data-ng-model="bill.totalPrice" />
-			<td data-ng-model="bill.discountPercentage" />
-			<td data-ng-model="bill.spentPoints" />
-			<td data-ng-model="bill.receivedPoints" />
+			<td data-ng-bind="bill.date" />
+			<td data-ng-bind="bill.state" />
+			<td data-ng-bind="bill.originalTotalPrice" />
+			<td data-ng-bind="bill.totalPrice" />
+			<td data-ng-bind="bill.discountPercentage" />
+			<td data-ng-bind="bill.spentPoints" />
+			<td data-ng-bind="bill.receivedPoints" />
 			<td>
 				<table>
 					<tr>
@@ -35,12 +35,12 @@
 						<th>POPUST</th>
 					</tr>
 					<tr data-ng-repeat="item in bill.items | orderBy: 'item.itemNumber'">
-						<td data-ng-model="item.article.name"/>
-						<td data-ng-model="item.units"/>
-						<td data-ng-model="item.unitPrice"/>
-						<td data-ng-model="item.originalTotalPrice"/>
-						<td data-ng-model="item.totalPrice"/>
-						<td data-ng-model="item.discountPercentage"/>
+						<td data-ng-bind="item.article.name"/>
+						<td data-ng-bind="item.units"/>
+						<td data-ng-bind="item.unitPrice"/>
+						<td data-ng-bind="item.originalTotalPrice"/>
+						<td data-ng-bind="item.totalPrice"/>
+						<td data-ng-bind="item.discountPercentage"/>
 					</tr>
 				</table>
 			</td>

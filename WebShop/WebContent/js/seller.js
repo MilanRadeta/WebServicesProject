@@ -21,7 +21,7 @@
 	};
 	seller.controller('sellerArticlesController', sellerArticlesController);
 	var sellerBillsController = function($scope, $resource) {
-		var Bills = $resource('webshop/sellers/articles',
+		var Bills = $resource('webshop/sellers/bills',
 				null, {
 					update : {
 						method : "PUT"

@@ -15,12 +15,12 @@
 	</thead>
 	<tbody>
 		<tr data-ng-repeat="bill in orderedBills">
-			<td data-ng-model="bill-id"></td>
-			<td data-ng-model="bill.date"></td>
-			<td>{{bill.firstName}} {{bill.lastName}} ({{bill.username}})</td>
-			<td data-ng-model="bill.originalTotalPrice"></td>
-			<td data-ng-model="bill.totalPrice"></td>
-			<td data-ng-model="bill.discountPercentage"></td>
+			<td data-ng-bind="bill.id"></td>
+			<td data-ng-bind="bill.date"></td>
+			<td>{{bill.buyer.firstName}} {{bill.buyer.lastName}} ({{bill.buyer.username}})</td>
+			<td data-ng-bind="bill.originalTotalPrice"></td>
+			<td data-ng-bind="bill.totalPrice"></td>
+			<td data-ng-bind="bill.discountPercentage"></td>
 			<td><button class="btn btn-primary" data-ng-disabled="processing" data-ng-click="process(bill)">Obradi</button></td>
 			<td><button class="btn btn-primary" data-ng-disabled="processing" data-ng-click="cancel(bill)">Otkaži</button></td>
 		</tr>

@@ -7,15 +7,12 @@
         (no-loop TRUE))
     ?bill <- (bill)
     ?item <- (item (bill ?bill.OBJECT))
+    (exists (itemDiscount))
     ?totalDiscount <- (accumulate
-        (and (bind ?totalDiscount 0) (bind ?counter 0)) ;; initializer
-        (and (bind ?totalDiscount (+ ?totalDiscount ?discount)) (bind ?counter (+ ?counter 1)));; action
-        ?totalDiscount ;; result
-        (itemDiscount
-            (bill ?bill.OBJECT)
-            (item ?item.OBJECT)
-            (discountPercentage ?discount)
-            )
+        (and (bind ?total 0) (bind ?counter 0)) ;; initializer
+        (and (bind ?total (+ ?total ?discount)) (bind ?counter (+ ?counter 1)));; action
+        ?total ;; result
+        (itemDiscount (bill ?bill.OBJECT) (item ?item.OBJECT) (discountPercentage ?discount) )
         )
     =>
     (assert (itemWithDiscount (item ?item) (discount ?totalDiscount)))
@@ -39,12 +36,11 @@
         )
     =>
     (retract ?itemWithDiscount)
-    (if (< ?discount ?maxDiscount) then 
-    	(modify ?item (discountPercentage ?discount))
+    (if (< ?discount ?maxDiscount) then
+        (modify ?item (discountPercentage ?discount))
         else
         (modify ?item (discountPercentage ?maxDiscount))
         )
     (modify ?item (originalTotalPrice (* ?item.units ?item.unitPrice)))
-    (modify ?item (totalPrice (- ?item.originalTotalPrice (* ?item.originalPrice (/ ?item.discountPercentage 100)))))
+    (modify ?item (totalPrice (- ?item.originalTotalPrice (* ?item.originalTotalPrice (/ ?item.discountPercentage 100)))))
     )
-

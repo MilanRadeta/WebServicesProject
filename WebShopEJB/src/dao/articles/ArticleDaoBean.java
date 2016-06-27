@@ -21,10 +21,10 @@ public class ArticleDaoBean extends GenericDaoBean<Article, Integer> implements
 		String queryString = "SELECT a FROM Article a";
 		List<String> conditions = new ArrayList<String>();
 		if (query.getCode() != null && query.getCode().length() > 0) {
-			conditions.add("a.code LIKE %" + query.getCode() + "%");
+			conditions.add("a.code LIKE '%" + query.getCode() + "%'");
 		}
 		if (query.getName() != null && query.getName().length() > 0) {
-			conditions.add("a.name LIKE %" + query.getName() + "%");
+			conditions.add("a.name LIKE '%" + query.getName() + "%'");
 		}
 		if (query.getCategories().size() > 0) {
 			StringBuilder builder = new StringBuilder();

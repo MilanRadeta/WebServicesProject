@@ -5,10 +5,11 @@
     (declare
         (no-loop TRUE))
     ?bill <- (bill)
+    (exists (billDiscount))
     ?totalDiscount <- (accumulate
-        (and (bind ?totalDiscount 0) (bind ?counter 0)) ;; initializer
-        (and (bind ?totalDiscount (+ ?totalDiscount ?discount)) (bind ?counter (+ ?counter 1)));; action
-        ?totalDiscount ;; result
+        (and (bind ?total 0) (bind ?counter 0)) ;; initializer
+        (and (bind ?total (+ ?total ?discount)) (bind ?counter (+ ?counter 1)));; action
+        ?total ;; result
         (billDiscount (bill ?bill.OBJECT) (discountPercentage ?discount))
         )
     =>

@@ -14,10 +14,10 @@
 	</thead>
 	<tbody>
 		<tr data-ng-repeat="article in neededArticles">
-			<td data-ng-model="article.name"></td>
-			<td data-ng-model="article.articleCategory.name"></td>
-			<td data-ng-model="article.inStock"></td>
-			<td data-ng-model="article.minInStock"></td>
+			<td data-ng-bind="article.name"></td>
+			<td data-ng-bind="article.articleCategory.name"></td>
+			<td data-ng-bind="article.inStock"></td>
+			<td data-ng-bind="article.minInStock"></td>
 			<td><input class="form-control" type="number" min="0"
 				data-ng-model="article.count"></td>
 			<td><button class="btn btn-primary" data-ng-disabled="ordering" data-ng-click="order(article)">Poruči</button></td>

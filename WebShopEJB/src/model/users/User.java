@@ -2,6 +2,7 @@ package model.users;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -9,15 +10,21 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import model.payment.Bill;
+import model.users.buyers.BuyerCategory;
 
 @Entity
 @Table
@@ -42,8 +49,16 @@ public class User implements Serializable {
 	@Column(insertable = false, updatable = false, nullable = false)
 	private Role role;
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private Date registrationDate;
+
+	// Buyer profile
+	private String address;
+	private double points;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private BuyerCategory category;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Bill> paymentHistory;
 
 	public int getId() {
 		return id;
@@ -99,6 +114,38 @@ public class User implements Serializable {
 
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public BuyerCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(BuyerCategory category) {
+		this.category = category;
+	}
+
+	public List<Bill> getPaymentHistory() {
+		return paymentHistory;
+	}
+
+	public void setPaymentHistory(List<Bill> paymentHistory) {
+		this.paymentHistory = paymentHistory;
+	}
+
+	public double getPoints() {
+		return points;
+	}
+
+	public void setPoints(double points) {
+		this.points = points;
 	}
 
 }

@@ -16,7 +16,7 @@
     (modify ?billDiscount (bill ?bill.OBJECT))
     (modify ?billDiscount (discountPercentage ?discountPercentage))
     (modify ?billDiscount (type ?type))
-    (call ?bill.discounts.OBJECT add ?billDiscount.OBJECT)
+    (call ?bill.discounts add ?billDiscount.OBJECT)
     )
 
 (deffunction createItemDiscount (?bill ?item ?discountPercentage ?type)
@@ -25,7 +25,8 @@
     (modify ?itemDiscount (item ?item.OBJECT))
     (modify ?itemDiscount (discountPercentage ?discountPercentage))
     (modify ?itemDiscount (type ?type))
-    (call ?item.discounts.OBJECT add ?itemDiscount.OBJECT)
+    (printout t ?item)
+    (call ?item.discounts add ?itemDiscount.OBJECT)
     )
 
 (deffunction getDateDifferenceInDays (?date1 ?date2) 

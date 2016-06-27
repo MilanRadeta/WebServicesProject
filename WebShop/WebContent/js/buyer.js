@@ -22,7 +22,7 @@
 	buyer.controller('buyerPaymentHistoryController', buyerPaymentHistoryController);
 	var buyerShopController = function($scope, $resource) {
 		$scope.searchQuery = {};
-		var Article = $resource('webshop/buyers/article', null,
+		var Article = $resource('webshop/buyers/articles', null,
 				{
 					search: {
 						method: 'POST',
@@ -30,7 +30,7 @@
 					}
 				});
 		var SaleEvents = $resource('webshop/buyers/saleEvents');
-		var search = function() {
+		$scope.search = function() {
 			$scope.searchResults = Article.search(null, $scope.searchQuery);
 			$scope.saleEvents = {};
 			SaleEvents.query(function(data) {
@@ -49,7 +49,13 @@
 			});
 		};
 		
-		search();
+		$scope.search();
+		
+		var getCategories = function() {
+			$scope.articleCategories = Article.query();
+		};
+		getCategories();
+		
 		var Cart = $resource('webshop/buyers/cart', null, 
 				{
 					update: {
@@ -61,14 +67,27 @@
 		};
 		getCart();
 		$scope.addToCart = function(article) {
+			for (var index in $scope.cart.items) {
+				var item = $scope.cart.items[index];
+				console.log(item);
+				console.log(article);
+				if (item.article.id == article.id) {
+					item.units += article.units;
+					item.unitPrice = article.price;
+					item.article = article;
+					$scope.cart.$update();
+					return;
+				}
+			}
 			$scope.cart.items.push(
 					{
 						article: article,
 						unitPrice: article.price,
-						units: article.count,
+						units: article.units,
 						
 					}
 			);
+			console.log($scope.cart);
 			$scope.cart.$update();
 		};
 		

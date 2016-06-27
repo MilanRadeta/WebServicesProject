@@ -35,7 +35,7 @@
 			templateUrl : "sellerBills.html",
 			controller : "sellerBillsController"
 		}).state("buyer", {
-			url : "/",
+			url : "/main",
 			templateUrl : "buyer.html",
 			controller : "buyerController"
 		}).state("buyer.profile", {
@@ -95,6 +95,8 @@
 
         $rootScope.logout = function () {
             AuthenticationService.logout();
+            console.log("LOGOUT");
+            $state.go("login");
             return true;
         };
         

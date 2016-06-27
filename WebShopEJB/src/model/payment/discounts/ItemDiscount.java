@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import model.payment.Bill;
 import model.payment.Item;
 
@@ -25,8 +27,10 @@ public class ItemDiscount implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; // unique
 	@ManyToOne(fetch=FetchType.EAGER)
+	@JsonIgnore
 	private Bill bill;
 	@ManyToOne(fetch=FetchType.EAGER)
+	@JsonIgnore
 	private Item item;
 	@Column(nullable = false)
 	private double discountPercentage;

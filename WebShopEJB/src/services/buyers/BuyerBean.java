@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import jess.JessException;
 import jess.Rete;
 import model.articles.Article;
+import model.articles.ArticleCategory;
 import model.payment.Bill;
 import model.payment.BillState;
 import model.payment.Item;
@@ -30,6 +31,7 @@ import model.users.Role;
 import model.users.User;
 import services.users.UserBean;
 import utils.articles.ArticleSearchQuery;
+import dao.articles.ArticleCategoryDaoLocal;
 import dao.articles.ArticleDaoLocal;
 import dao.payment.BillDaoLocal;
 import dao.payment.discounts.SaleEventDaoLocal;
@@ -54,12 +56,15 @@ public class BuyerBean implements BuyerBeanRemote {
 
 	@EJB
 	private ArticleDaoLocal articleDao;
-	
+
 	@EJB
 	private SaleEventDaoLocal saleDao;
-	
+
 	@EJB
 	private BillDaoLocal billDao;
+	
+	@EJB
+	private ArticleCategoryDaoLocal articleCategoryDao;
 
 	@GET
 	@Path("/test")
@@ -90,6 +95,16 @@ public class BuyerBean implements BuyerBeanRemote {
 		if (user != null && user.getRole() == Role.BUYER) {
 			Buyer buyer = buyerDao.findById(user.getId());
 			return buyer.getPaymentHistory();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ArticleCategory> getArticleCategories() {
+		User user = userBean.validateJWTToken(httpHeaders.getRequestHeaders()
+				.getFirst("Authorization"));
+		if (user != null && user.getRole() == Role.BUYER) {
+			return articleCategoryDao.findAll();
 		}
 		return null;
 	}
@@ -141,7 +156,7 @@ public class BuyerBean implements BuyerBeanRemote {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Bill payBill(Bill bill) {
 		User user = userBean.validateJWTToken(httpHeaders.getRequestHeaders()
@@ -182,15 +197,14 @@ public class BuyerBean implements BuyerBeanRemote {
 		}
 		return null;
 	}
-	
 
 	private Bill formBill(Bill bill) {
 
 		for (Item item : bill.getItems()) {
 			item.setDiscountPercentage(0);
 			item.getDiscounts().clear();
-			item.setOriginalTotalPrice(0);
-			item.setTotalPrice(0);
+			item.setOriginalTotalPrice(item.getUnits() * item.getUnitPrice());
+			item.setTotalPrice(item.getOriginalTotalPrice());
 		}
 		try {
 			Rete engine = new Rete();
@@ -198,7 +212,8 @@ public class BuyerBean implements BuyerBeanRemote {
 			engine.eval("(watch all)");
 			engine.batch("jess/rules/baseItemDiscounts.clp");
 			for (Item item : bill.getItems()) {
-				engine.definstance("articleCategory", item.getArticle().getArticleCategory(), false);
+				engine.definstance("articleCategory", item.getArticle()
+						.getArticleCategory(), false);
 				engine.definstance("article", item.getArticle(), false);
 				engine.definstance("item", item, false);
 			}
@@ -214,7 +229,7 @@ public class BuyerBean implements BuyerBeanRemote {
 				engine.definstance("item", item, false);
 			}
 			engine.definstance("bill", bill, false);
-			
+
 			for (Bill oldBill : bill.getBuyer().getPaymentHistory()) {
 				for (Item item : oldBill.getItems()) {
 					engine.definstance("article", item.getArticle(), false);
@@ -222,19 +237,20 @@ public class BuyerBean implements BuyerBeanRemote {
 				}
 				engine.definstance("bill", oldBill, false);
 			}
-			
+
 			for (SaleEvent sale : saleDao.findAll()) {
 				engine.definstance("saleEvent", sale, false);
 			}
-			
+
 			engine.run();
-			
+
 			engine = new Rete();
 			engine.reset();
 			engine.eval("(watch all)");
 			engine.batch("jess/rules/finalItemDiscounts.clp");
 			for (Item item : bill.getItems()) {
-				engine.definstance("articleCategory", item.getArticle().getArticleCategory(), false);
+				engine.definstance("articleCategory", item.getArticle()
+						.getArticleCategory(), false);
 				engine.definstance("article", item.getArticle(), false);
 				for (ItemDiscount discount : item.getDiscounts()) {
 					engine.definstance("itemDiscount", discount, false);
@@ -242,24 +258,26 @@ public class BuyerBean implements BuyerBeanRemote {
 				engine.definstance("item", item, false);
 			}
 			engine.definstance("bill", bill, false);
-			
+
 			engine.run();
-			
+
 			engine = new Rete();
 			engine.reset();
 			engine.eval("(watch all)");
 			engine.batch("jess/rules/billDiscounts.clp");
-			engine.definstance("buyerCategory", bill.getBuyer().getCategory(), false);
+			engine.definstance("buyerCategory", bill.getBuyer().getCategory(),
+					false);
 			engine.definstance("buyer", bill.getBuyer(), false);
 			for (Item item : bill.getItems()) {
-				engine.definstance("articleCategory", item.getArticle().getArticleCategory(), false);
+				engine.definstance("articleCategory", item.getArticle()
+						.getArticleCategory(), false);
 				engine.definstance("article", item.getArticle(), false);
 				engine.definstance("item", item, false);
 			}
 			engine.definstance("bill", bill, false);
-			
+
 			engine.run();
-			
+
 			engine = new Rete();
 			engine.reset();
 			engine.eval("(watch all)");
@@ -268,25 +286,25 @@ public class BuyerBean implements BuyerBeanRemote {
 			for (BillDiscount discount : bill.getDiscounts()) {
 				engine.definstance("billDiscount", discount, false);
 			}
-			
+
 			engine.run();
-			
+
 			engine = new Rete();
 			engine.reset();
 			engine.eval("(watch all)");
 			engine.batch("jess/rules/points.clp");
-			engine.definstance("buyerCategory", bill.getBuyer().getCategory(), false);
+			engine.definstance("buyerCategory", bill.getBuyer().getCategory(),
+					false);
 			engine.definstance("buyer", bill.getBuyer(), false);
 			engine.definstance("bill", bill, false);
-			
+
 			engine.run();
-			
+
 		} catch (JessException e) {
 			e.printStackTrace();
 			return null;
 		}
 		return bill;
 	}
-
 
 }

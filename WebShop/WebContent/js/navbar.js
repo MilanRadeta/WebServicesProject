@@ -26,13 +26,13 @@
 						state : "buyer"
 					}, {
 						name : "Profil",
-						state : "profile"
+						state : "buyer.profile"
 					}, {
 						name : "Istorijat",
-						state : "paymentHistory"
+						state : "buyer.paymentHistory"
 					}, {
 						name : "Shop",
-						state : "shop"
+						state : "buyer.shop"
 					}, {
 						name : "Logout",
 						onClick : $rootScope.logout
