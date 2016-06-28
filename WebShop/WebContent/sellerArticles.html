@@ -2,22 +2,25 @@
 <table class="table table-bordered form-group">
 	<thead>
 		<tr>
-			<th colspan="6">ARTIKLI KOJE JE POTREBNO PORUČITI</th>
+			<th colspan="6">ARTIKLI</th>
 		<tr>
 		<tr>
 			<th>NAZIV</th>
 			<th>KATEGORIJA</th>
 			<th>BROJNO STANJE</th>
 			<th>MINIMALNO POTREBNO BROJNO STANJE</th>
+			<th>POTREBNO PORUČITI</th>
 			<th>KOLIČINA KOJA SE PORUČUJE</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr data-ng-repeat="article in neededArticles">
+		<tr data-ng-repeat="article in articles">
 			<td data-ng-bind="article.name"></td>
 			<td data-ng-bind="article.articleCategory.name"></td>
 			<td>{{article.inStock | number:2}}</td>
 			<td>{{article.minInStock | number:2}}</td>
+			<td><input class="form-control" type="checkbox" data-ng-disabled="true"
+				data-ng-model="article.neededInStock"></td>
 			<td><input class="form-control" type="number" min="0"
 				data-ng-model="article.count"></td>
 			<td><button class="btn btn-primary" data-ng-disabled="ordering" data-ng-click="order(article)">Poruči</button></td>

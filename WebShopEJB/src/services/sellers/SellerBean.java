@@ -52,7 +52,6 @@ public class SellerBean implements SellerBeanRemote {
 				.getFirst("Authorization"));
 		if (user != null && user.getRole() == Role.SELLER) {
 			List<Article> articles = articleDao.findAll();
-			List<Article> retVal = new ArrayList<>();
 			try {
 				Rete engine = new Rete();
 				engine.reset();
@@ -60,9 +59,7 @@ public class SellerBean implements SellerBeanRemote {
 				engine.batch("jess/rules/articles.clp");
 
 				for (Article article : articles) {
-					if (article.isNeededInStock()) {
-						retVal.add(article);
-					} else {
+					if (!article.isNeededInStock()) {
 						engine.definstance("article", article, false);
 					}
 				}
@@ -84,9 +81,8 @@ public class SellerBean implements SellerBeanRemote {
 				while (iterator.hasNext()) {
 					Article article = iterator.next();
 					articleDao.merge(article);
-					retVal.add(article);
 				}
-				return retVal;
+				return articles;
 			} catch (JessException e) {
 				e.printStackTrace();
 				return null;

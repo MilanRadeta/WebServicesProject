@@ -12,7 +12,7 @@
 					}
 				});
 		var loadEntries = function() {
-			$scope.neededArticles = Articles.query();
+			$scope.articles = Articles.query();
 		};
 		loadEntries();
 		$scope.order = function(article) {

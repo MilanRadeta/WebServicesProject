@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import model.articles.Article;
 import model.payment.discounts.ItemDiscount;
 
-@Generated(value="Dali", date="2016-06-27T14:46:15.324+0200")
+@Generated(value="Dali", date="2016-06-28T03:38:04.025+0200")
 @StaticMetamodel(Item.class)
 public class Item_ {
 	public static volatile SingularAttribute<Item, Integer> id;
