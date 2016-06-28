@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
-@Table
+@Table(name = "ARTICLE")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Article implements Serializable {
 	private static final long serialVersionUID = -7264390151265136042L;

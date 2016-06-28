@@ -1,5 +1,5 @@
 (function(angular) {
-	var buyer = angular.module("buyer", ["authentication", "ngResource"]);
+	var buyer = angular.module("buyer", [ "authentication", "ngResource" ]);
 	var buyerController = function($scope, AuthenticationService) {
 		$scope.currentUser = AuthenticationService.getCurrentUser();
 	};
@@ -19,54 +19,55 @@
 		};
 		loadEntries();
 	};
-	buyer.controller('buyerPaymentHistoryController', buyerPaymentHistoryController);
+	buyer.controller('buyerPaymentHistoryController',
+			buyerPaymentHistoryController);
 	var buyerShopController = function($scope, $resource) {
 		$scope.searchQuery = {};
-		var Article = $resource('webshop/buyers/articles', null,
-				{
-					search: {
-						method: 'POST',
-						isArray: true
-					}
-				});
+		var Article = $resource('webshop/buyers/articles', null, {
+			search : {
+				method : 'POST',
+				isArray : true
+			}
+		});
 		var SaleEvents = $resource('webshop/buyers/saleEvents');
 		$scope.search = function() {
-			$scope.searchResults = Article.search(null, $scope.searchQuery, function(data) {
-				$scope.searchResults = data;
-				for (var index in data) {
-					data[index].units = 1;
-				}
-			});
-			$scope.saleEvents = {};
-			SaleEvents.query(function(data) {
-					var saleEvents = data;
-					for (var index in saleEvents) {
-						var event = saleEvents[index];
-						var categories = event.categories;
-						for (var cindex in categories) {
-							var cat = categories[cindex];
-							if (!$scope.saleEvents[cat.id]) {
-								$scope.saleEvents[cat.id] = [];
-							}
-							$scope.saleEvents[cat.id].push(event);
+			$scope.searchResults = Article.search(null, $scope.searchQuery,
+					function(data) {
+						$scope.searchResults = data;
+						for ( var index in data) {
+							data[index].units = 1;
 						}
-					}
-			});
+					});
 		};
-		
+		$scope.saleEvents = {};
+		SaleEvents.query(null, function(data) {
+			var saleEvents = data;
+			for ( var index in saleEvents) {
+				var event = saleEvents[index];
+				var categories = event.categories;
+				for ( var cindex in categories) {
+					var cat = categories[cindex];
+					if (!$scope.saleEvents[cat.id]) {
+						$scope.saleEvents[cat.id] = [];
+					}
+					$scope.saleEvents[cat.id].push(event);
+				}
+			}
+			console.log($scope.saleEvents);
+		});
+
 		$scope.search();
-		
+
 		var getCategories = function() {
 			$scope.articleCategories = Article.query();
 		};
 		getCategories();
-		
-		var Cart = $resource('webshop/buyers/cart', null, 
-				{
-					update: {
-						method: 'PUT'
-					}
-				});
+
+		var Cart = $resource('webshop/buyers/cart', null, {
+			update : {
+				method : 'PUT'
+			}
+		});
 		var getCart = function() {
 			$scope.cart = Cart.get();
 		};
@@ -95,16 +96,16 @@
 				$scope.cart.$update();
 			}
 		};
-		
+
 		$scope.showCart = function() {
 			$scope.cartShown = true;
 		};
-		
+
 		$scope.removeFromCart = function(item) {
 			$scope.cart.items.splice($scope.cart.items.indexOf(item), 1);
 			$scope.cart.$update();
 		};
-		
+
 		$scope.payBill = function() {
 			if ($scope.cart.buyer.points >= $scope.cart.spentPoints) {
 				$scope.bill = Cart.save(null, $scope.cart);
@@ -113,13 +114,13 @@
 				$scope.billShown = true;
 			}
 		};
-		
+
 		$scope.showSearch = function() {
 			$scope.bill = null;
 			$scope.billShown = false;
 			$scope.cartShown = false;
 		};
-		
+
 	};
 	buyer.controller('buyerShopController', buyerShopController);
 }(angular));

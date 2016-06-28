@@ -29,7 +29,7 @@ import model.payment.Bill;
 import model.users.buyers.BuyerCategory;
 
 @Entity
-@Table
+@Table(name = "USER")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @NamedQuery(name = "findUserByUsername", query = "SELECT u FROM User u WHERE u.username LIKE :username")

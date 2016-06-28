@@ -26,7 +26,7 @@ import model.payment.discounts.BillDiscount;
 import model.users.Buyer;
 
 @Entity
-@Table
+@Table(name = "BILL")
 @NamedQueries({
 		@NamedQuery(name = "findOrderedBills", query = "SELECT b FROM Bill b WHERE b.state = 'ORDERED'"),
 		@NamedQuery(name = "findByBuyer", query = "SELECT b FROM Bill b WHERE b.buyer.id = :id") })

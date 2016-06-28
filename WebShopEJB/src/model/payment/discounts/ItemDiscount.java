@@ -20,7 +20,7 @@ import model.payment.Bill;
 import model.payment.Item;
 
 @Entity
-@Table
+@Table(name = "ITEMDISCOUNT")
 public class ItemDiscount implements Serializable {
 	private static final long serialVersionUID = -2699182953239243368L;
 

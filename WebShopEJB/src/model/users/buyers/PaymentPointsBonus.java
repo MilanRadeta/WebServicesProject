@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
-@Table
+@Table(name = "PAYMENTPOINTSBONUS")
 @NamedQuery(name = "findBonusByBuyerCategory", query = "SELECT b FROM PaymentPointsBonus b "
 		+ "WHERE b.buyerCategory.id = :id")
 public class PaymentPointsBonus implements Serializable {

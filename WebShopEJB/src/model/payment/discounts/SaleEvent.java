@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 import model.articles.ArticleCategory;
 
 @Entity
-@Table
+@Table(name = "SALEEVENT")
 public class SaleEvent implements Serializable {
 	private static final long serialVersionUID = -2064753681681715061L;
 

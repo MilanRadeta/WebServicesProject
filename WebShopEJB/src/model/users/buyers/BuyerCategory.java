@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "BUYERCATEGORY")
 public class BuyerCategory implements Serializable {
 	private static final long serialVersionUID = -6975330980242658550L;
 

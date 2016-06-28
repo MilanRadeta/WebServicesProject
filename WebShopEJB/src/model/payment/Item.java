@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -20,6 +21,7 @@ import model.articles.Article;
 import model.payment.discounts.ItemDiscount;
 
 @Entity
+@Table(name = "ITEM")
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1569257937604437006L;
 	

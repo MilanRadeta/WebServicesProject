@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import model.payment.Bill;
 import model.users.buyers.BuyerCategory;
 
-@Generated(value="Dali", date="2016-06-27T03:58:27.764+0200")
+@Generated(value="Dali", date="2016-06-27T14:46:15.387+0200")
 @StaticMetamodel(User.class)
 public class User_ {
 	public static volatile SingularAttribute<User, Integer> id;

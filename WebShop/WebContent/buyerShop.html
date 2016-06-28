@@ -46,7 +46,13 @@
 			<td data-ng-bind="result.name"></td>
 			<td data-ng-bind="result.articleCategory.name"></td>
 			<td>{{result.price | number:2}}</td>
-			<td data-ng-bind="saleEvents[result.articleCategory.name]"></td>
+			<td>
+				<table>
+					<tr data-ng-repeat="event in saleEvents[result.articleCategory.id]">
+						<td>{{event.name}}</td>
+					</tr>
+				</table>
+			</td>
 			<td><input class="form-control" type="number" min="1"
 				data-ng-model="result.units"></td>
 			<td><button class="btn btn-primary"

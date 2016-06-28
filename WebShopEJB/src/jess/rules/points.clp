@@ -12,7 +12,7 @@
     ?bill <- (bill (totalPrice ?totalPrice))
     ?buyer <- (buyer (OBJECT ?bill.buyer) (points ?points))
     ?category <- (buyerCategory (OBJECT ?buyer.category))
-    (paymentPointsBonus (buyerCategory ?buyer.category) (percent ?percent) (min ?min &:(>= ?totalPrice ?min)) (max ?max &:(<= ?totalPrice ?max)))
+    (paymentPointsBonus (buyerCategory ?buyer.category) (percent ?percent) (min ?min &:(>= ?totalPrice ?min)) (max ?max &:(< ?totalPrice ?max)))
     =>
     (modify ?bill (receivedPoints (round (* (/ ?percent 100) ?totalPrice))))
     )
